@@ -29,7 +29,8 @@ services:
       - .ipfs:/ipfs/config
     environment:
       IPFS_SWARM_KEY_FILE: /ipfs/config/swarm.key
-    command: ["daemon", "--migrate", "--enable-pubsub-experiment"]
+    entrypoint: []
+      command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
     networks:
       - single-network
 
