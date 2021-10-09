@@ -70,10 +70,6 @@ install_docker() {
 	sudo apt-get update
 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
-	[ $(getent group docker) ] || sudo groupadd docker
-	sudo usermod -aG docker $USER
-	newgrp docker &
-
 	sudo apt-get install -y docker-compose
 }
 
@@ -99,6 +95,6 @@ else
 fi
 info "clone resources completed"
 
-docker-compose up -d
+sudo docker-compose up -d
 
 completed "docker start completed"
