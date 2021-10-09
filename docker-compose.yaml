@@ -68,6 +68,8 @@ services:
       WAIT_HOSTS: ipfs:5001
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
+      ORBITDB_SERVER: orbitdb
+      ORBITDB_PORT: 6001
     networks:
       - single-network
 
