@@ -25,16 +25,37 @@ services:
       - 5001:5001
       - 8080:8080
     volumes:
+      - .ipfs_data:/data/ipfs
       - .ipfs:/ipfs/config
     environment:
       IPFS_SWARM_KEY_FILE: /ipfs/config/swarm.key
+    command: ["daemon", "--migrate", "--enable-pubsub-experiment"]
     networks:
       - single-network
+
+  #####################   Orbit     ##################### 
+  orbitdb:
+    image: tearust/tea-orbit-db-http-api:v0.0.4
+    container_name: orbitdb
+    depends_on: 
+      - "ipfs"
+    restart: always
+    ports:
+      - 6001:6001
+    env_file: .env
+    volumes:
+      - .orbitdb:/orbitdb
+    command: ["node", "src/cli.js", "api", "--orbitdb-dir", "/orbitdb", "--no-https", "--http1", "--api-port", "6001"]
+    environment: 
+      - IPFS_HOST=ipfs
+      - IPFS_PORT=5001
+      - SEED=${SEED}
+      - ADMIN_LIST=${ADMIN_LIST}
 
   # ################ Adapter  ##############
 
   adapter:
-    image: tearust/adapter:layer2-0.2
+    image: tearust/adapter:epoch5-1
     container_name: "delegate-adapter"
     ports:
       - 8000:8000
