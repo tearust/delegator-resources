@@ -65,7 +65,7 @@ install_docker() {
     gnupg \
     lsb-release
 
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg -y
 
 	sudo apt-get update
 	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
@@ -73,10 +73,14 @@ install_docker() {
 	sudo groupadd docker
 	sudo usermod -aG docker $USER
 	newgrp docker
+
+	sudo apt-get install -y docker-compose
 }
 
 install_dependencies() {
 	install_docker
+
+	sudo apt-get install -y git
 }
 
 info "begin to install dependencies..."
