@@ -58,7 +58,7 @@ services:
   # ################ Adapter  ##############
 
   adapter:
-    image: tearust/adapter:epoch5-0.1
+    image: tearust/adapter:epoch5-0.2
     container_name: "delegate-adapter"
     depends_on: 
       - "orbitdb"
@@ -74,6 +74,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
       ORBITDB_SERVER: orbitdb
       ORBITDB_PORT: 6001
+      LAYER1_WALLET: http://134.209.69.224
     networks:
       - single-network
 
