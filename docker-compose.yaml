@@ -1,0 +1,117 @@
+version: "3.1"
+
+networks:
+  single-network:
+  single-internal:
+    internal: true
+services:
+  ##################    Layer1   #######################
+  layer1:
+    image: tearust/tea-camellia:fast-0.4.1
+    container_name: delegate-layer1
+    ports:
+      - 9944:9944
+      - 9933:9933
+    command: bash -c "tea-camellia --dev --alice --unsafe-ws-external --unsafe-rpc-external --rpc-methods Unsafe --rpc-cors all -lwarn"
+    networks:
+      - single-network
+
+  #####################   IPFS     #####################
+
+  ipfs:
+    image: ipfs/go-ipfs:v0.8.0
+    container_name: delegate-ipfs
+    ports:
+      - 5001:5001
+      - 8080:8080
+    volumes:
+      - .ipfs:/ipfs/config
+    environment:
+      IPFS_SWARM_KEY_FILE: /ipfs/config/swarm.key
+    networks:
+      - single-network
+
+  # ################ Adapter  ##############
+
+  adapter:
+    image: tearust/adapter:layer2-0.2
+    container_name: "delegate-adapter"
+    ports:
+      - 8000:8000
+      - 5011:5011
+    environment:
+      IPFS_PORT: 5001
+      IPFS_SERVER: ipfs
+      RPC_CLIENTURL: http://parent-instance-client:5010
+      WAIT_HOSTS: ipfs:5001
+      WAIT_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 5
+    networks:
+      - single-network
+
+  # ################ Simulator  ##############
+  nsm-simulator:
+    image: tearust/nsm-simulator:layer2-0.3
+    container_name: "delegate-nsm-simulator"
+    ports:
+      - 5999:5999
+    networks:
+      - single-internal
+
+  # ################ Runtime  ##############
+  runtime:
+    image: tearust/runtime:layer2-0.22
+    container_name: "delegate-runtime"
+    networks:
+      - single-internal
+    environment:
+      VMH_HOST: vmh-server
+      SIM_CLIENT_URL: http://nsm-simulator:5999
+      WAIT_HOSTS: nsm-simulator:5999
+      WAIT_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 5
+
+  vmh-server:
+    image: tearust/vmh-server:layer2-0.8
+    container_name: "delegate-vmh-server"
+    networks:
+      - single-network
+      - single-internal
+    environment:
+      CLIENT_HOST: parent-instance-client
+      ENCLAVE_HOST: runtime
+      WAIT_HOSTS: runtime:5006
+      WAIT_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 5
+
+  parent-instance-client:
+    image: tearust/parent-instance-client:layer2-0.22
+    container_name: "delegate-parent-instance-client"
+    networks:
+      - single-network
+    volumes:
+      - .log:/log
+    environment:
+      ADAPTER_CLIENT_URL: http://adapter:5011
+      LOG_FILE: /log/output.log
+      VMH_HOST: vmh-server
+      IPFS_HOST: ipfs
+      IPFS_PORT: 5001
+      TEA_ID: 3zjLTxJHkEHI6NI4EJ7yoVCwF/OCIG4k/uky5jfC23s=
+      TEA_ENV_SETTINGS:
+        MODE:DEV
+        PUBLIC_URLS:https://tearust.com
+        FLUENCER_HTTP_MODE:leader-only
+      RAFT_BOOT_PEER_ID: 1
+      RAFT_BOOT_PORT: 5014
+      JOIN_DEFAULT_RAFT_NETWORK: "true"
+      LAYER1_NODE_IP: layer1
+      LAYER1_NODE_PORT: 9944
+      ORBITDB_IP: 139.198.14.205
+      ORBITDB_PORT: 6001
+      WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
+      WAIT_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 5
+    entrypoint: /bin/bash
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
