@@ -93,7 +93,7 @@ else
 	git fetch origin
 	git reset --hard origin/master
 fi
-info "clone resources completed"
+completed "clone resources completed"
 
 sudo docker-compose up -d
 
