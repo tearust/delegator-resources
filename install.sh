@@ -72,7 +72,7 @@ install_docker() {
 
 	[ $(getent group docker) ] || sudo groupadd docker
 	sudo usermod -aG docker $USER
-	newgrp docker
+	newgrp docker &
 
 	sudo apt-get install -y docker-compose
 }
@@ -89,7 +89,7 @@ completed "install dependencies completed"
 
 info "begin to git clone resources..."
 RESOURCE_DIR=delegator-resources
-if [ ! -d "$BIN_DIR" ]; then
+if [ ! -d "$RESOURCE_DIR" ]; then
 	git clone https://github.com/tearust/delegator-resources
 	cd $RESOURCE_DIR
 else
