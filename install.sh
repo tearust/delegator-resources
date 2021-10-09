@@ -55,9 +55,46 @@ download() {
   return $rc
 }
 
-info "begin to git clone resources"
-git clone https://github.com/tearust/delegator-resources
+install_docker() {
+	sudo apt-get update
 
-cd delegator-resources
+	sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
 
-docker-compose up
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+	sudo apt-get update
+	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+	sudo groupadd docker
+	sudo usermod -aG docker $USER
+	newgrp docker
+}
+
+install_dependencies() {
+	install_docker
+}
+
+info "begin to install dependencies..."
+install_dependencies
+completed "install dependencies completed"
+
+info "begin to git clone resources..."
+RESOURCE_DIR=delegator-resources
+if [ ! -d "$BIN_DIR" ]; then
+	git clone https://github.com/tearust/delegator-resources
+	cd $RESOURCE_DIR
+else
+	cd $RESOURCE_DIR
+	git fetch origin
+	git reset --hard origin/master
+fi
+info "clone resources completed"
+
+docker-compose up -d
+
+completed "docker start completed"
