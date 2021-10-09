@@ -55,4 +55,9 @@ download() {
   return $rc
 }
 
-info "hello world!"
+info "begin to git clone resources"
+git clone https://github.com/tearust/delegator-resources
+
+cd delegator-resources
+
+docker-compose up
