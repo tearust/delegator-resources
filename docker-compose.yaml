@@ -37,7 +37,7 @@ services:
 
   #####################   Orbit     ##################### 
   orbitdb:
-    image: tearust/tea-orbit-db-http-api:v0.0.5
+    image: tearust/tea-orbit-db-http-api:v0.0.6
     container_name: orbitdb
     depends_on: 
       - "ipfs"
@@ -90,7 +90,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:layer2-0.22
+    image: tearust/runtime:layer2-0.23
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -102,7 +102,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   vmh-server:
-    image: tearust/vmh-server:layer2-0.8
+    image: tearust/vmh-server:layer2-0.9
     container_name: "delegate-vmh-server"
     networks:
       - single-network
@@ -115,7 +115,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   parent-instance-client:
-    image: tearust/parent-instance-client:layer2-0.22
+    image: tearust/parent-instance-client:layer2-0.23
     container_name: "delegate-parent-instance-client"
     networks:
       - single-network
@@ -137,7 +137,7 @@ services:
       JOIN_DEFAULT_RAFT_NETWORK: "true"
       LAYER1_NODE_IP: layer1
       LAYER1_NODE_PORT: 9944
-      ORBITDB_IP: 139.198.14.205
+      ORBITDB_IP: orbitdb
       ORBITDB_PORT: 6001
       WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
       WAIT_TIMEOUT: 300
