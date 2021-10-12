@@ -10,8 +10,8 @@ services:
     image: tearust/tea-camellia:fast-0.4.1
     container_name: delegate-layer1
     ports:
-      - 9943:9944
-      - 9932:9933
+      - 9944:9944
+      - 9933:9933
       - 30332:30333
     volumes:
       - .layer1:/root/.local
