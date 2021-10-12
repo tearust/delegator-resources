@@ -18,7 +18,6 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --validator 
                       --genesis-seed tearust/tea-camellia:fast-0.4.1
                       ----initial-validator-count 2
                       --ws-max-connections 10000 
@@ -38,6 +37,7 @@ services:
     image: ipfs/go-ipfs:v0.8.0
     container_name: delegate-ipfs
     ports:
+      - 4001:4001
       - 5001:5001
       - 8080:8080
     volumes:
@@ -52,7 +52,7 @@ services:
 
   #####################   Orbit     ##################### 
   orbitdb:
-    image: tearust/tea-orbit-db-http-api:v0.0.5
+    image: tearust/tea-orbit-db-http-api:v0.0.6
     container_name: orbitdb
     depends_on: 
       - "ipfs"
@@ -74,7 +74,7 @@ services:
   # ################ Adapter  ##############
 
   adapter:
-    image: tearust/adapter:epoch5-0.1
+    image: tearust/adapter:epoch5-0.2
     container_name: "delegate-adapter"
     depends_on: 
       - "orbitdb"
@@ -90,6 +90,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
       ORBITDB_SERVER: orbitdb
       ORBITDB_PORT: 6001
+      LAYER1_WALLET: http://134.209.69.224
     networks:
       - single-network
 
@@ -104,7 +105,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:layer2-0.22
+    image: tearust/runtime:layer2-0.23
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -116,7 +117,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   vmh-server:
-    image: tearust/vmh-server:layer2-0.8
+    image: tearust/vmh-server:layer2-0.9
     container_name: "delegate-vmh-server"
     networks:
       - single-network
@@ -129,7 +130,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   parent-instance-client:
-    image: tearust/parent-instance-client:layer2-0.22
+    image: tearust/parent-instance-client:layer2-0.23
     container_name: "delegate-parent-instance-client"
     networks:
       - single-network
@@ -151,7 +152,7 @@ services:
       JOIN_DEFAULT_RAFT_NETWORK: "true"
       LAYER1_NODE_IP: layer1
       LAYER1_NODE_PORT: 9944
-      ORBITDB_IP: 139.198.14.205
+      ORBITDB_IP: orbitdb
       ORBITDB_PORT: 6001
       WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
       WAIT_TIMEOUT: 300
