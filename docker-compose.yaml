@@ -53,7 +53,7 @@ services:
   #####################   Orbit     ##################### 
   orbitdb:
     image: tearust/tea-orbit-db-http-api:v0.0.6
-    container_name: orbitdb
+    container_name: delegate-orbitdb
     depends_on: 
       - "ipfs"
     restart: always
@@ -97,7 +97,7 @@ services:
   # ################ Simulator  ##############
   nsm-simulator:
     image: tearust/nsm-simulator:layer2-0.3
-    container_name: "delegate-nsm-simulator"
+    container_name: "delegate-nsm"
     ports:
       - 5999:5999
     networks:
@@ -118,7 +118,7 @@ services:
 
   vmh-server:
     image: tearust/vmh-server:layer2-0.9
-    container_name: "delegate-vmh-server"
+    container_name: "delegate-vmh"
     networks:
       - single-network
       - single-internal
@@ -131,7 +131,7 @@ services:
 
   parent-instance-client:
     image: tearust/parent-instance-client:layer2-0.23
-    container_name: "delegate-parent-instance-client"
+    container_name: "delegate-parent"
     networks:
       - single-network
     volumes:
