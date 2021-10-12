@@ -58,11 +58,8 @@ fi
 ipfs config --json Experimental.Libp2pStreamMounting true
 ipfs config --json Swarm.EnableRelayHop true
 
-## china testnet-alice
-# ipfs bootstrap add /ip4/139.198.14.205/tcp/4001/p2p/12D3KooWQHFNeGSnCCAWiDefPDw7xBdQbiRwAUQ5zoQixCr4dgWJ
-
 ## us epoch
-ipfs bootstrap add /ip4/134.209.69.224/tcp/4001/p2p/12D3KooWDv33ZkSpfJS1AvQ9kG7er26dQLpeuxt3jUgE39BMoNSa
+ipfs bootstrap add /ip4/134.209.69.224/tcp/4001/p2p/12D3KooWHQjfo3NRhdbcpn8dVdDrPfrHuTYrzrWmBcgxVy8hmFrJ
 
 # ******* add for teaproject by jacky end ********
 
