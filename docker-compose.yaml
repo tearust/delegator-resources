@@ -12,7 +12,23 @@ services:
     ports:
       - 9944:9944
       - 9933:9933
-    command: bash -c "tea-camellia --dev --alice --unsafe-ws-external --unsafe-rpc-external --rpc-methods Unsafe --rpc-cors all -lwarn"
+      - 30333:30333
+    volumes:
+      - .layer1:/root/.local
+      - ./data:/tea-camellia
+    command: bash -c "tea-camellia 
+                      --chain canary 
+                      --validator 
+                      --genesis-seed tearust/tea-camellia:fast-0.4.1
+                      ----initial-validator-count 2
+                      --ws-max-connections 10000 
+                      --unsafe-ws-external 
+                      --unsafe-rpc-external 
+                      --rpc-methods Unsafe 
+                      --rpc-cors all 
+                      --genesis-coupons-path /tea-camellia/epoch3.5.csv 
+                      --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
+                      --bootnodes /ip4/134.209.69.224/tcp/30333/p2p/12D3KooWENNfKiPN929WkL9oSJE2TbkwwLWTcKvdsiSb6VJirUEG"
     networks:
       - single-network
 
