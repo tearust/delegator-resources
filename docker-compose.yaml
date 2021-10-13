@@ -52,7 +52,7 @@ services:
 
   #####################   Orbit     ##################### 
   orbitdb:
-    image: tearust/tea-orbit-db-http-api:v0.0.6
+    image: tearust/tea-orbit-db-http-api:v0.0.7
     container_name: delegate-orbitdb
     depends_on: 
       - "ipfs"
@@ -68,6 +68,7 @@ services:
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
+      - NONCE=epoch5-1
     networks:
       - single-network
 
