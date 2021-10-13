@@ -130,7 +130,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   parent-instance-client:
-    image: tearust/parent-instance-client:layer2-0.23
+    image: tearust/parent-instance-client:layer2-0.24
     container_name: "delegate-parent"
     networks:
       - single-network
@@ -157,6 +157,6 @@ services:
       WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
-    entrypoint: /bin/bash
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    # entrypoint: /bin/bash
+    # stdin_open: true # docker run -i
+    # tty: true        # docker run -t
