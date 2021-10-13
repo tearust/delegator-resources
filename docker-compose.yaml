@@ -148,9 +148,8 @@ services:
         MODE:DEV
         PUBLIC_URLS:https://tearust.com
         FLUENCER_HTTP_MODE:leader-only
-      RAFT_BOOT_PEER_ID: 1
       RAFT_BOOT_PORT: 5014
-      JOIN_DEFAULT_RAFT_NETWORK: "true"
+      JOIN_DEFAULT_RAFT_NETWORK: "false"
       LAYER1_NODE_IP: layer1
       LAYER1_NODE_PORT: 9944
       ORBITDB_IP: orbitdb
