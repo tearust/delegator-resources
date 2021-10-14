@@ -75,7 +75,7 @@ services:
   # ################ Adapter  ##############
 
   adapter:
-    image: tearust/adapter:epoch5-0.3
+    image: tearust/adapter:epoch5-0.4
     container_name: "delegate-adapter"
     depends_on: 
       - "orbitdb"
