@@ -5,4 +5,4 @@
 .ipfs_data
 .orbitdb
 .layer1
-.log
+.log/*
