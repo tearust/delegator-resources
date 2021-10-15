@@ -68,7 +68,7 @@ services:
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
-      - NONCE=epoch5-1
+      - NONCE=epoch5-0.1
     networks:
       - single-network
 
@@ -106,7 +106,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:simulator
+    image: tearust/runtime:epoch5-0.1
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -118,7 +118,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   vmh-server:
-    image: tearust/vmh-server:layer2-0.9
+    image: tearust/vmh-server:epoch5-0.1
     container_name: "delegate-vmh"
     networks:
       - single-network
@@ -131,7 +131,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   parent-instance-client:
-    image: tearust/parent-instance-client:layer2-0.24
+    image: tearust/parent-instance-client:epoch5-0.1
     container_name: "delegate-parent"
     networks:
       - single-network
