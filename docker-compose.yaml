@@ -106,7 +106,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:layer2-0.23
+    image: tearust/runtime:simulator
     container_name: "delegate-runtime"
     networks:
       - single-internal
