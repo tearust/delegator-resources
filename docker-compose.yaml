@@ -92,7 +92,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
       ORBITDB_SERVER: orbitdb
       ORBITDB_PORT: 6001
-      LAYER1_WALLET: http://134.209.69.224
+      LAYER1_WALLET: https://wallet.teaproject.org
     networks:
       - single-network
 
