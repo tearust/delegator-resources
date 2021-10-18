@@ -20,6 +20,7 @@ services:
                       --chain canary 
                       --genesis-seed tearust/tea-camellia:epoch5-0.6
                       --ws-max-connections 10000 
+                      --unsafe-ws-external 
                       --rpc-cors all 
                       --genesis-coupons-path /tea-camellia/epoch4.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
