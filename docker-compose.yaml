@@ -50,7 +50,7 @@ services:
 
   #####################   Orbit     ##################### 
   orbitdb:
-    image: tearust/tea-orbit-db-http-api:v0.0.7
+    image: tearust/tea-orbit-db-http-api:v0.0.8
     container_name: delegate-orbitdb
     depends_on: 
       - "ipfs"
