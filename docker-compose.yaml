@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:epoch5-0.6
+    image: tearust/tea-camellia:fast-0.5.1
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -18,11 +18,11 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed tearust/tea-camellia:epoch5-0.6
+                      --genesis-seed tearust/tea-camellia:fast-0.5.1
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
                       --rpc-cors all 
-                      --genesis-coupons-path /tea-camellia/epoch4.csv 
+                      --genesis-coupons-path /tea-camellia/epoch5.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
                       --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWNfKaja9MndtqE8p6Vh97ZoyeFM85FTMHP4SZbheDA4aa
                       --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWQD9iQtYRGGU4tVdW3wkViNh4aA8Jcrok2DuUfiVF2ZWS"
