@@ -66,7 +66,7 @@ services:
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
-      - NONCE=epoch5-0.2
+      - NONCE=epoch5-1
     networks:
       - single-network
 
