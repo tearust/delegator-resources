@@ -80,6 +80,28 @@ install_dependencies() {
 	install_docker
 }
 
+set_tea_id() {
+  info "please input \"Machine Id\": (if press enter directly will not setting)"
+  read -r MY_TEA_ID </dev/tty
+
+  if [ -z "$MY_TEA_ID" ]; then
+    info "ignore setting machine id"
+  else
+    sed -ri "s/^(\s*)(TEA_ID:\s*.*$)/\1TEA_ID: ${MY_TEA_ID}/" docker-compose.yaml
+  fi
+}
+
+set_account_phrase() {
+  info "please input \"Account Phrase\": (if press enter directly will not setting)"
+  read -r MY_LAYER1_ACCOUNT </dev/tty
+
+  if [ -z "$MY_LAYER1_ACCOUNT" ]; then
+    info "ignore setting account phrase"
+  else
+    sed -ri "s/^(\s*)(LAYER1_ACCOUNT:\s*.*$)/\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}/" docker-compose.yaml
+  fi
+}
+
 pre_settings() {
 	sudo apt-get install -y git
 
@@ -94,6 +116,9 @@ pre_settings() {
   	git reset --hard origin/master
   fi
   completed "clone resources completed"
+
+  set_tea_id
+  set_account_phrase
 }
 
 info "begin to pre settings..."
