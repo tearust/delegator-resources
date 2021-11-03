@@ -2,7 +2,7 @@
 ## Run
 
 ```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/master/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch6/install.sh)"
 ```
 
 ## Generate machine id
