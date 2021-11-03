@@ -78,25 +78,31 @@ install_docker() {
 
 install_dependencies() {
 	install_docker
-
-	sudo apt-get install -y git
 }
+
+pre_settings() {
+	sudo apt-get install -y git
+
+  info "begin to git clone resources..."
+  RESOURCE_DIR=delegator-resources
+  if [ ! -d "$RESOURCE_DIR" ]; then
+  	git clone https://github.com/tearust/delegator-resources
+  	cd $RESOURCE_DIR
+  else
+  	cd $RESOURCE_DIR
+  	git fetch origin
+  	git reset --hard origin/master
+  fi
+  completed "clone resources completed"
+}
+
+info "begin to pre settings..."
+pre_settings
+completed "pre settings completed"
 
 info "begin to install dependencies..."
 install_dependencies
 completed "install dependencies completed"
-
-info "begin to git clone resources..."
-RESOURCE_DIR=delegator-resources
-if [ ! -d "$RESOURCE_DIR" ]; then
-	git clone https://github.com/tearust/delegator-resources
-	cd $RESOURCE_DIR
-else
-	cd $RESOURCE_DIR
-	git fetch origin
-	git reset --hard origin/master
-fi
-completed "clone resources completed"
 
 sudo docker-compose up -d
 
