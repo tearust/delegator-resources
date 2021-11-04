@@ -108,12 +108,12 @@ pre_settings() {
   info "begin to git clone resources..."
   RESOURCE_DIR=delegator-resources
   if [ ! -d "$RESOURCE_DIR" ]; then
-  	git clone https://github.com/tearust/delegator-resources
+  	git clone -b epoch6 https://github.com/tearust/delegator-resources
   	cd $RESOURCE_DIR
   else
   	cd $RESOURCE_DIR
   	git fetch origin
-  	git reset --hard origin/master
+  	git reset --hard origin/epoch6
   fi
   completed "clone resources completed"
 
