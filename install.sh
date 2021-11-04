@@ -87,7 +87,7 @@ set_tea_id() {
   if [ -z "$MY_TEA_ID" ]; then
     info "ignore setting machine id"
   else
-    sed -ri "s/^(\s*)(TEA_ID:\s*.*$)/\1TEA_ID: ${MY_TEA_ID}/" docker-compose.yaml
+    sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose.yaml
   fi
 }
 
@@ -98,7 +98,7 @@ set_account_phrase() {
   if [ -z "$MY_LAYER1_ACCOUNT" ]; then
     info "ignore setting account phrase"
   else
-    sed -ri "s/^(\s*)(LAYER1_ACCOUNT:\s*.*$)/\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}/" docker-compose.yaml
+    sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose.yaml
   fi
 }
 
