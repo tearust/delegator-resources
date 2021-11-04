@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:fast-0.5.1
+    image: tearust/tea-camellia:epoch6-0.4
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -18,14 +18,13 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed tearust/tea-camellia:fast-0.5.1
+                      --genesis-seed tearust/tea-camellia:epoch6-0.4
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
                       --rpc-cors all 
-                      --genesis-coupons-path /tea-camellia/epoch5.csv 
+                      --genesis-coupons-path /tea-camellia/epoch3.5.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWNfKaja9MndtqE8p6Vh97ZoyeFM85FTMHP4SZbheDA4aa
-                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWQD9iQtYRGGU4tVdW3wkViNh4aA8Jcrok2DuUfiVF2ZWS"
+                      --bootnodes /ip4/134.209.69.224/tcp/30333/p2p/12D3KooWEVaJdCRYXbZJu9ss5XGR3ASYa21xNMNzRRyoT3w7PLj2"
     networks:
       - single-network
 
@@ -50,7 +49,7 @@ services:
 
   #####################   Orbit     ##################### 
   orbitdb:
-    image: tearust/tea-orbit-db-http-api:v0.0.8
+    image: tearust/tea-orbit-db-http-api:v0.0.11
     container_name: delegate-orbitdb
     depends_on: 
       - "ipfs"
@@ -66,7 +65,8 @@ services:
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
-      - NONCE=epoch5-0.2
+      - NONCE=epoch6-0.3
+      - GLOBAL_BBS_DB=test
     networks:
       - single-network
 
@@ -95,7 +95,7 @@ services:
 
   # ################ Simulator  ##############
   nsm-simulator:
-    image: tearust/nsm-simulator:layer2-0.3
+    image: tearust/nsm-simulator:epoch6-0.2
     container_name: "delegate-nsm"
     ports:
       - 5999:5999
@@ -104,7 +104,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:epoch5-0.1
+    image: tearust/runtime:epoch6-0.5
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -116,7 +116,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   vmh-server:
-    image: tearust/vmh-server:epoch5-0.1
+    image: tearust/vmh-server:epoch6-0.3
     container_name: "delegate-vmh"
     networks:
       - single-network
@@ -129,7 +129,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   parent-instance-client:
-    image: tearust/parent-instance-client:epoch5-0.1
+    image: tearust/parent-instance-client:epoch6-0.3
     container_name: "delegate-parent"
     networks:
       - single-network
