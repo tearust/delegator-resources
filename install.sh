@@ -121,6 +121,12 @@ pre_settings() {
   set_account_phrase
 }
 
+MEM_SIZE=`grep MemTotal /proc/meminfo | awk '{printf "%.0f", ($2 / 1024)}'`
+if [[ "$MEM_SIZE" -lt 1800 ]]; then
+  error "Machine memory size should larger equal than 2G"
+  exit 1
+fi
+
 info "begin to pre settings..."
 pre_settings
 completed "pre settings completed"
