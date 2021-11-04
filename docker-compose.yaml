@@ -19,6 +19,7 @@ services:
     command: bash -c "tea-camellia 
                       --chain canary 
                       --genesis-seed tearust/tea-camellia:epoch6-0.4
+                      --initial-validator-count 2
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
                       --rpc-cors all 
