@@ -60,13 +60,13 @@ services:
     env_file: .env
     volumes:
       - .orbitdb:/orbitdb
-    command: ["node", "src/cli.js", "api", "--orbitdb-dir", "/orbitdb", "--no-https", "--http1", "--api-port", "6001"]
+    command: ["node", "--max-old-space-size=512", "src/cli.js", "api", "--orbitdb-dir", "/orbitdb", "--no-https", "--http1", "--api-port", "6001"]
     environment: 
       - IPFS_HOST=ipfs
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
-      - NONCE=epoch6-0.3
+      - NONCE=epoch6-0.1
       - GLOBAL_BBS_DB=test
     networks:
       - single-network
