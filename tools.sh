@@ -9,6 +9,8 @@ elif [ $SUB_COMMAND = "stop" ]; then
 	sudo docker-compose down
 elif [ $SUB_COMMAND = "clean" ]; then
 	rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
+elif [ $SUB_COMMAND = "health" ]; then
+	sudo docker-compose ps
 else
-	echo "supported subcommands: logs, stop"
+	echo "supported subcommands: logs, stop, clean, health"
 fi
