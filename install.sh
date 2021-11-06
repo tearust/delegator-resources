@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+MY_TEA_ID=$1
+MY_LAYER1_ACCOUNT=$2
+
 set -eu
 printf '\n'
 
@@ -81,28 +84,24 @@ install_dependencies() {
 }
 
 set_tea_id() {
-  info "please input \"Machine Id\": (pressing enter without keying in anything will not set the value)"
-  read -r MY_TEA_ID </dev/tty
-
-  if [ -z "$MY_TEA_ID" ]; then
-    info "ignore setting machine id"
-  else
-    sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose.yaml
-  fi
+  sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose.yaml
 }
 
 set_account_phrase() {
-  info "please input \"Account Phrase\": (pressing enter without keying in anything will not set the value)"
-  read -r MY_LAYER1_ACCOUNT </dev/tty
-
-  if [ -z "$MY_LAYER1_ACCOUNT" ]; then
-    info "ignore setting account phrase"
-  else
-    sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose.yaml
-  fi
+  sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose.yaml
 }
 
 pre_settings() {
+  if [ -z "$MY_TEA_ID" ]; then
+    error "please input \"Machine Id\""
+    exit 1
+  fi
+
+  if [ -z "$MY_LAYER1_ACCOUNT" ]; then
+    error "please input \"Account Phrase\""
+    exit 1
+  fi
+
 	sudo apt-get install -y git
 
   info "begin to git clone resources..."
