@@ -19,7 +19,7 @@ After setting machine id and layer1 account phase, you should see logs about env
 docker start completed
 ```
 
-## Generate machine id
+## Generate machine id and account phrase
 
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch6/gen_tea_id.sh)"
