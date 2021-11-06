@@ -9,7 +9,7 @@ Then you will start mining(aka plant) cml with your hex encoded machine id creat
 
 Run the following command to install:
 ```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch6/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch6/install.sh)" "" "<your tea id>" "<your account phrase>"
 ```
 
 During installation, you will see some prompts to input your machine id and layer1 account phase. Please input your machine id with base64 encoding created above and your layer1 account phase, note the layer1 account phase should be the cml owner account you planted.
