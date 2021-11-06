@@ -81,7 +81,7 @@ install_dependencies() {
 }
 
 set_tea_id() {
-  info "please input \"Machine Id\": (if press enter directly will not setting)"
+  info "please input \"Machine Id\": (pressing enter without keying in anything will not set the value)"
   read -r MY_TEA_ID </dev/tty
 
   if [ -z "$MY_TEA_ID" ]; then
@@ -92,7 +92,7 @@ set_tea_id() {
 }
 
 set_account_phrase() {
-  info "please input \"Account Phrase\": (if press enter directly will not setting)"
+  info "please input \"Account Phrase\": (pressing enter without keying in anything will not set the value)"
   read -r MY_LAYER1_ACCOUNT </dev/tty
 
   if [ -z "$MY_LAYER1_ACCOUNT" ]; then
