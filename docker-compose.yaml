@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:epoch6-0.5
+    image: tearust/tea-camellia:epoch6-0.6
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -18,7 +18,7 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed tearust/tea-camellia:epoch6-0.4
+                      --genesis-seed tearust/tea-camellia:epoch6-0.6
                       --initial-validator-count 2
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
