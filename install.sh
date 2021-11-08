@@ -113,6 +113,8 @@ pre_settings() {
   	cd $RESOURCE_DIR
   	git fetch origin
   	git reset --hard origin/epoch6
+
+  	rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
   fi
   completed "clone resources completed"
 
