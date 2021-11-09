@@ -25,7 +25,8 @@ services:
                       --rpc-cors all 
                       --genesis-coupons-path /tea-camellia/epoch5.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/134.209.69.224/tcp/30333/p2p/12D3KooWEVaJdCRYXbZJu9ss5XGR3ASYa21xNMNzRRyoT3w7PLj2"
+                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWGgCfZWebkTto3RrUxqa26T2TqigjZCyKjfZNhXgoX9vF
+                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWKEPAdCYWzpVyEA5mhAJyg7pC9iS5mg7M4y2hGAxat8TV"
     networks:
       - single-network
 
