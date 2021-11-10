@@ -30,7 +30,7 @@ TEA_ID_BASE64=`sed '5q;d' $TEMP_TEA_ID_PATH`
 HINT_VAR=$TEA_ID_HEX
 hint
 
-echo "MY_TEA_ID=$TEA_ID_BASE64" > $TEA_CONFIG
+echo "MY_TEA_ID=\"$TEA_ID_BASE64\"" > $TEA_CONFIG
 
 rm $TEMP_TEA_ID_PATH
 echo "-------- generation completed --------"
@@ -51,7 +51,7 @@ LAYER1_ADDRESS=`sed '6q;d' $TEMP_LAYER1_PATH`
 HINT_VAR=$LAYER1_ADDRESS
 hint
 
-echo "MY_LAYER1_ACCOUNT=$LAYER1_PHASE" >> $TEA_CONFIG
+echo "MY_LAYER1_ACCOUNT=\"$LAYER1_PHASE\"" >> $TEA_CONFIG
 
 rm $TEMP_LAYER1_PATH
 echo "-------- generation completed --------"

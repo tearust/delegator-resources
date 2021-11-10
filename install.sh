@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-MY_TEA_ID=$1
-MY_LAYER1_ACCOUNT=$2
+TEA_CONFIG="$HOME/.tea"
 
 set -eu
 printf '\n'
@@ -92,6 +91,13 @@ set_account_phrase() {
 }
 
 pre_settings() {
+  if [ -e "$TEA_CONFIG" ]; then
+    . $TEA_CONFIG
+  else
+    error "please run gen_tea_id.sh to generate machine id first"
+    exit
+  fi
+
   if [ -z "$MY_TEA_ID" ]; then
     error "please input \"Machine Id\""
     exit 1
