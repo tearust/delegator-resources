@@ -144,4 +144,5 @@ completed "install dependencies completed"
 
 sudo docker-compose up -d
 
+sleep 30s
 completed "docker start completed"
