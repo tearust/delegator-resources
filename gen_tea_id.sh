@@ -3,11 +3,14 @@
 TEA_CONFIG="$HOME/.tea"
 
 sudo apt-get install -y wget
+
+rm -f mock-tea-id-generator
 # mock-tea-id-generator compiled from https://github.com/tearust/mock-tea-id-generator
 wget https://raw.githubusercontent.com/tearust/delegator-resources/epoch6/mock-tea-id-generator
 sudo chmod +x mock-tea-id-generator
 
 # subkey compiled from https://github.com/paritytech/substrate
+rm -f subkey
 wget https://raw.githubusercontent.com/tearust/delegator-resources/epoch6/subkey
 sudo chmod +x subkey
 
