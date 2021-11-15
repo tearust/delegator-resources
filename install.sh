@@ -108,6 +108,8 @@ pre_settings() {
     exit 1
   fi
 
+  echo "DELEGATOR_RESOURCES_PATH=\"$PWD\"" >> $TEA_CONFIG
+
 	sudo apt-get install -y git
 
   info "begin to git clone resources..."
