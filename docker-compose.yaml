@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:epoch6-0.11
+    image: tearust/tea-camellia:epoch6-0.13
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -18,7 +18,7 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed epoch6-0.11-2
+                      --genesis-seed epoch6-0.13
                       --initial-validator-count 2
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
@@ -106,7 +106,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:epoch6-0.8
+    image: tearust/runtime:epoch6-0.10
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -131,7 +131,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   parent-instance-client:
-    image: tearust/parent-instance-client:epoch6-0.5
+    image: tearust/parent-instance-client:epoch6-0.6
     container_name: "delegate-client"
     networks:
       - single-network
