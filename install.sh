@@ -148,7 +148,6 @@ sudo docker-compose up -d
 echo "Starting services .... please wait for 30 seconds..."
 sleep 30s
 
-sudo pkill -9 -f layer2-guardian
 nohup sudo RUST_LOG=info ./layer2-guardian &
 
 completed "docker start completed"
