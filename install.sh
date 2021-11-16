@@ -108,8 +108,6 @@ pre_settings() {
     exit 1
   fi
 
-  echo "DELEGATOR_RESOURCES_PATH=\"$PWD\"" >> $TEA_CONFIG
-
 	sudo apt-get install -y git
 
   info "begin to git clone resources..."
@@ -126,6 +124,7 @@ pre_settings() {
   fi
   completed "clone resources completed"
 
+  echo "DELEGATOR_RESOURCES_PATH=\"$PWD\"" >> $TEA_CONFIG
   set_tea_id
   set_account_phrase
 }
@@ -148,4 +147,8 @@ sudo docker-compose up -d
 
 echo "Starting services .... please wait for 30 seconds..."
 sleep 30s
+
+sudo pkill -9 -f layer2-guardian
+nohup sudo RUST_LOG=info ./layer2-guardian &
+
 completed "docker start completed"
