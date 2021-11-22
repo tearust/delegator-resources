@@ -32,8 +32,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-file: 3
-        max-size: 10m
+        max-file: "3"
+        max-size: "10m"
 
   #####################   IPFS     #####################
 
@@ -56,8 +56,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-file: 3
-        max-size: 10m
+        max-file: "3"
+        max-size: "10m"
 
   #####################   Orbit     ##################### 
   orbitdb:
@@ -84,8 +84,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-file: 3
-        max-size: 10m
+        max-file: "3"
+        max-size: "10m"
 
   # ################ Adapter  ##############
 
@@ -112,8 +112,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-file: 3
-        max-size: 10m
+        max-file: "3"
+        max-size: "10m"
 
   # ################ Simulator  ##############
   nsm-simulator:
@@ -126,8 +126,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-file: 3
-        max-size: 10m
+        max-file: "3"
+        max-size: "10m"
 
   # ################ Runtime  ##############
   runtime:
@@ -144,8 +144,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-file: 3
-        max-size: 10m
+        max-file: "3"
+        max-size: "10m"
 
   vmh-server:
     image: tearust/vmh-server:fast-0.6.1
@@ -162,8 +162,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-file: 3
-        max-size: 10m
+        max-file: "3"
+        max-size: "10m"
 
   parent-instance-client:
     image: tearust/parent-instance-client:fast-0.6.1
@@ -196,8 +196,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-file: 3
-        max-size: 10m
+        max-file: "3"
+        max-size: "10m"
 
     # entrypoint: /bin/bash
     # stdin_open: true # docker run -i
