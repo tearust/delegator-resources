@@ -29,6 +29,11 @@ services:
                       --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWKEPAdCYWzpVyEA5mhAJyg7pC9iS5mg7M4y2hGAxat8TV"
     networks:
       - single-network
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 3
+        max-size: 10m
 
   #####################   IPFS     #####################
 
@@ -48,6 +53,11 @@ services:
     command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
     networks:
       - single-network
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 3
+        max-size: 10m
 
   #####################   Orbit     ##################### 
   orbitdb:
@@ -71,6 +81,11 @@ services:
       - GLOBAL_BBS_DB=test
     networks:
       - single-network
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 3
+        max-size: 10m
 
   # ################ Adapter  ##############
 
@@ -94,6 +109,11 @@ services:
       LAYER1_WALLET: https://wallet.teaproject.org
     networks:
       - single-network
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 3
+        max-size: 10m
 
   # ################ Simulator  ##############
   nsm-simulator:
@@ -103,6 +123,11 @@ services:
       - 5999:5999
     networks:
       - single-internal
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 3
+        max-size: 10m
 
   # ################ Runtime  ##############
   runtime:
@@ -116,6 +141,11 @@ services:
       WAIT_HOSTS: nsm-simulator:5999
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 3
+        max-size: 10m
 
   vmh-server:
     image: tearust/vmh-server:fast-0.6.1
@@ -129,6 +159,11 @@ services:
       WAIT_HOSTS: runtime:5006
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 3
+        max-size: 10m
 
   parent-instance-client:
     image: tearust/parent-instance-client:fast-0.6.1
@@ -158,6 +193,12 @@ services:
       WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 3
+        max-size: 10m
+
     # entrypoint: /bin/bash
     # stdin_open: true # docker run -i
     # tty: true        # docker run -t
