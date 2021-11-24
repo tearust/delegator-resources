@@ -12,7 +12,7 @@ services:
     ports:
       - 9944:9944
       - 9933:9933
-      - 30332:30333
+      - 30333:30333
     volumes:
       - .layer1:/root/.local
       - ./data:/tea-camellia
