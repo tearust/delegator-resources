@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:fast-0.6.1
+    image: tearust/tea-camellia:fast-0.6.2
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -131,7 +131,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:fast-0.6.2
+    image: tearust/runtime:fast-0.6.3
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -148,7 +148,7 @@ services:
         max-size: "10m"
 
   vmh-server:
-    image: tearust/vmh-server:fast-0.6.2
+    image: tearust/vmh-server:fast-0.6.3
     container_name: "delegate-vmh"
     networks:
       - single-network
@@ -166,7 +166,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:fast-0.6.2
+    image: tearust/parent-instance-client:fast-0.6.3
     container_name: "delegate-client"
     networks:
       - single-network
