@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:fast-0.6.2
+    image: tearust/tea-camellia:fast-0.6.1
     container_name: delegate-layer1
     ports:
       - 9944:9944
