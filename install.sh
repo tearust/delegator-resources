@@ -135,6 +135,8 @@ if [ "$MEM_SIZE" -lt 1800 ]; then
   exit 1
 fi
 
+cd $HOME
+
 info "begin to pre settings..."
 pre_settings
 completed "pre settings completed"
