@@ -118,7 +118,7 @@ pre_settings() {
   else
   	cd $RESOURCE_DIR
   	git fetch origin
-  	git reset --hard origin/epoch6
+  	git reset --hard origin/epoch7-dev
 
   	rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
   fi
