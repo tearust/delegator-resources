@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:fast-0.6.1
+    image: tearust/tea-camellia:epoch7-0.6
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -18,15 +18,15 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed fast-0.6.1
+                      --genesis-seed epoch7-0.6
                       --initial-validator-count 2
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
                       --rpc-cors all 
                       --genesis-coupons-path /tea-camellia/epoch5.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWGgCfZWebkTto3RrUxqa26T2TqigjZCyKjfZNhXgoX9vF
-                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWKEPAdCYWzpVyEA5mhAJyg7pC9iS5mg7M4y2hGAxat8TV"
+                      --bootnodes /ip4/134.209.69.224/tcp/30333/p2p/12D3KooWAN7opbe8wFATVSRLF299CRJBJizUYGXK2vUgQ6vr2CRn
+                      --bootnodes /ip4/143.244.154.7/tcp/30333/p2p/12D3KooWG6B6SxzHRsqu2vvKep93AqffdwnRJkPxaL2VqhRBkAAY"
     networks:
       - single-network
     logging:
@@ -117,7 +117,7 @@ services:
 
   # ################ Simulator  ##############
   nsm-simulator:
-    image: tearust/nsm-simulator:fast-0.6.1
+    image: tearust/nsm-simulator:epoch7-0.1
     container_name: "delegate-nsm"
     ports:
       - 5999:5999
@@ -131,7 +131,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:fast-0.6.5
+    image: tearust/runtime:epoch7-0.1
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -148,7 +148,7 @@ services:
         max-size: "10m"
 
   vmh-server:
-    image: tearust/vmh-server:fast-0.6.5
+    image: tearust/vmh-server:epoch7-0.1
     container_name: "delegate-vmh"
     networks:
       - single-network
@@ -166,12 +166,15 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:fast-0.6.5
+    image: tearust/parent-instance-client:epoch7-0.1
     container_name: "delegate-client"
     networks:
       - single-network
     volumes:
       - .log:/log
+    # make sure 5998 port is available on server
+    ports:
+      - 5998:5998
     environment:
       ADAPTER_CLIENT_URL: http://adapter:5011
       LOG_FILE: /log/output.log
@@ -183,13 +186,15 @@ services:
         MODE:DEV
         PUBLIC_URLS:https://tearust.com
         FLUENCER_HTTP_MODE:leader-only
-      RAFT_BOOT_PORT: 5014
-      JOIN_DEFAULT_RAFT_NETWORK: "false"
       LAYER1_NODE_IP: layer1
       LAYER1_NODE_PORT: 9944
       LAYER1_ACCOUNT: //Alice
       ORBITDB_IP: orbitdb
       ORBITDB_PORT: 6001
+      LIBP2P_ADDRESS: /ip4/138.68.21.103/tcp/5998
+      LIBP2P_BOOTNODES: 
+        /ip4/138.68.21.103/tcp/5998
+        /ip4/138.68.247.206/tcp/5998
       WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
