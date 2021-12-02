@@ -61,7 +61,7 @@ services:
 
   #####################   Orbit     ##################### 
   orbitdb:
-    image: tearust/tea-orbit-db-http-api:v0.0.11
+    image: tearust/tea-orbit-db-http-api:v0.0.12
     container_name: delegate-orbitdb
     depends_on: 
       - "ipfs"
