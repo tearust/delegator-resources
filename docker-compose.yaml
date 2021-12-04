@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:epoch7-0.6
+    image: tearust/tea-camellia:epoch7-0.8
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -18,15 +18,15 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed epoch7-0.6
+                      --genesis-seed epoch7-0.8
                       --initial-validator-count 2
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
                       --rpc-cors all 
                       --genesis-coupons-path /tea-camellia/epoch5.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/134.209.69.224/tcp/30333/p2p/12D3KooWAN7opbe8wFATVSRLF299CRJBJizUYGXK2vUgQ6vr2CRn
-                      --bootnodes /ip4/143.244.154.7/tcp/30333/p2p/12D3KooWG6B6SxzHRsqu2vvKep93AqffdwnRJkPxaL2VqhRBkAAY"
+                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWHEAWUN2wSaqy3mp8t2yk1AXx1BAAr6YKkegdafamTsVt
+                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWKcDFKHktfZ3JYaXHtMGoNEYsjrwKRBpimk4ARBvhgtwY"
     networks:
       - single-network
     logging:
@@ -131,7 +131,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:epoch7-0.4
+    image: tearust/runtime:epoch7-0.5
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -148,7 +148,7 @@ services:
         max-size: "10m"
 
   vmh-server:
-    image: tearust/vmh-server:epoch7-0.1
+    image: tearust/vmh-server:epoch7-0.2
     container_name: "delegate-vmh"
     networks:
       - single-network
@@ -166,7 +166,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:epoch7-0.2
+    image: tearust/parent-instance-client:epoch7-0.3
     container_name: "delegate-client"
     networks:
       - single-network
