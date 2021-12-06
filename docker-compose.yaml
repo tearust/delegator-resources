@@ -131,7 +131,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:epoch7-0.6
+    image: tearust/runtime:epoch7-0.7
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -166,7 +166,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:epoch7-0.3
+    image: tearust/parent-instance-client:epoch7-0.4
     container_name: "delegate-client"
     networks:
       - single-network
