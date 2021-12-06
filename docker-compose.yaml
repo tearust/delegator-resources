@@ -131,7 +131,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:epoch7-0.5
+    image: tearust/runtime:epoch7-0.6
     container_name: "delegate-runtime"
     networks:
       - single-internal
