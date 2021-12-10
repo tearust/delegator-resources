@@ -123,7 +123,7 @@ pre_settings() {
     git fetch origin
   	git reset --hard origin/epoch7-test
 
-    sudo docker-compose up -d
+    sudo docker-compose down -v
 
     if [ $INSTALL_MODE = "init" ]; then
   	  rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
