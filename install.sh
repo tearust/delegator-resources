@@ -94,7 +94,7 @@ set_account_phrase() {
 
 try_kill_guardian() {
   set +e
-  sudo pkill -9 -f layer2-guardian
+  sudo pkill -9 -f layer2-guardian 2>&1
   set -e
 }
 
