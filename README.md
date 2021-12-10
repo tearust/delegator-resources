@@ -27,6 +27,13 @@ docker start completed
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch7-dev/gen_tea_id.sh)"
 ```
 
+## Update new version
+
+Run the following command to update from an existing running version:
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch7-dev/install.sh)" "" "update"
+```
+
 ## Operations after run
 
 Enter into `delegator-resources` directory the is a script file named "tools.sh", you can use the script file like `tools.sh logs` to show current running logs. There are also some sub-commands as following:
