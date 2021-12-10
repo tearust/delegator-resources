@@ -92,12 +92,6 @@ set_account_phrase() {
   sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose.yaml
 }
 
-try_kill_guardian() {
-  set +e
-  sudo pkill -9 -f layer2-guardian 2>&1
-  set -e
-}
-
 pre_settings() {
   if [ -e "$TEA_CONFIG" ]; then
     . $TEA_CONFIG
@@ -160,8 +154,6 @@ info "begin to install dependencies..."
 install_dependencies
 completed "install dependencies completed"
 
-try_kill_guardian
-
 if [ $INSTALL_MODE = "init" ]; then
   sudo docker-compose -f docker-compose-origin.yaml up -d
 else
@@ -171,6 +163,9 @@ fi
 echo "Starting services .... please wait for 30 seconds..."
 sleep 30s
 
-nohup sudo RUST_LOG=info ./layer2-guardian > nohup.out 2>&1 &
+if ! pgrep -x "gedit" > /dev/null
+then
+  nohup sudo RUST_LOG=info ./layer2-guardian > nohup.out 2>&1 &
+fi
 
 completed "docker start completed"
