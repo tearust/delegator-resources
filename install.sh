@@ -118,9 +118,9 @@ pre_settings() {
   	git clone -b epoch7-dev https://github.com/tearust/delegator-resources
   	cd $RESOURCE_DIR
   else
+  	cd $RESOURCE_DIR
     sudo docker-compose up -d
 
-  	cd $RESOURCE_DIR
   	git fetch origin
   	git reset --hard origin/epoch7-dev
 
