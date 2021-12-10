@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:epoch7-0.8
+    image: tearust/tea-camellia:epoch7-0.9
     container_name: delegate-layer1
     ports:
       - 9944:9944
