@@ -115,14 +115,15 @@ pre_settings() {
   info "begin to git clone resources..."
   RESOURCE_DIR=delegator-resources
   if [ ! -d "$RESOURCE_DIR" ]; then
-  	git clone -b epoch7-dev https://github.com/tearust/delegator-resources
+  	git clone -b epoch7-test https://github.com/tearust/delegator-resources
   	cd $RESOURCE_DIR
   else
   	cd $RESOURCE_DIR
-    sudo docker-compose up -d
 
-  	git fetch origin
-  	git reset --hard origin/epoch7-dev
+    git fetch origin
+  	git reset --hard origin/epoch7-test
+
+    sudo docker-compose up -d
 
     if [ $INSTALL_MODE = "init" ]; then
   	  rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
