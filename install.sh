@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+INSTALL_MODE=$1
+: ${INSTALL_MODE:="init"}
 TEA_CONFIG="$HOME/.tea"
 
 set -eu
@@ -116,11 +118,15 @@ pre_settings() {
   	git clone -b epoch7-dev https://github.com/tearust/delegator-resources
   	cd $RESOURCE_DIR
   else
+    sudo docker-compose up -d
+
   	cd $RESOURCE_DIR
   	git fetch origin
   	git reset --hard origin/epoch7-dev
 
-  	rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
+    if [ $INSTALL_MODE = "init" ]; then
+  	  rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
+    fi
   fi
   completed "clone resources completed"
 
@@ -145,7 +151,12 @@ info "begin to install dependencies..."
 install_dependencies
 completed "install dependencies completed"
 
-sudo docker-compose up -d
+sudo pkill -9 -f layer2-guardian
+if [ $INSTALL_MODE = "init" ]; then
+  sudo docker-compose up -f docker-compose-origin.yaml -d
+else
+  sudo docker-compose up -d
+fi
 
 echo "Starting services .... please wait for 30 seconds..."
 sleep 30s
