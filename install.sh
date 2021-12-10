@@ -150,6 +150,8 @@ fi
 
 cd $HOME
 
+info "install mode: $INSTALL_MODE"
+
 info "begin to pre settings..."
 pre_settings
 completed "pre settings completed"
