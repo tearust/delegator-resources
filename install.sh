@@ -92,6 +92,12 @@ set_account_phrase() {
   sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose.yaml
 }
 
+try_kill_guardian() {
+  set +e
+  sudo pkill -9 -f layer2-guardian
+  set -e
+}
+
 pre_settings() {
   if [ -e "$TEA_CONFIG" ]; then
     . $TEA_CONFIG
@@ -152,9 +158,10 @@ info "begin to install dependencies..."
 install_dependencies
 completed "install dependencies completed"
 
-sudo pkill -9 -f layer2-guardian
+try_kill_guardian
+
 if [ $INSTALL_MODE = "init" ]; then
-  sudo docker-compose up -f docker-compose-origin.yaml -d
+  sudo docker-compose -f docker-compose-origin.yaml up -d
 else
   sudo docker-compose up -d
 fi
