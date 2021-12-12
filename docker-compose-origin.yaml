@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:epoch7-0.8
+    image: tearust/tea-camellia:fast-0.7.1
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -18,15 +18,15 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed epoch7-0.8
+                      --genesis-seed fast-0.7.1
                       --initial-validator-count 2
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
                       --rpc-cors all 
-                      --genesis-coupons-path /tea-camellia/epoch5.csv 
+                      --genesis-coupons-path /tea-camellia/epoch7.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWHEAWUN2wSaqy3mp8t2yk1AXx1BAAr6YKkegdafamTsVt
-                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWKcDFKHktfZ3JYaXHtMGoNEYsjrwKRBpimk4ARBvhgtwY"
+                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWFt4qDf6Nsmo9oFvGuVPMHHjrAWCXFvrBrHQfsoo5B4tn
+                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWD8AiZyQAXiDDhs9uJRjV5ASYFxACdvMNTv6eeodAPAyB"
     networks:
       - single-network
     logging:
@@ -117,7 +117,7 @@ services:
 
   # ################ Simulator  ##############
   nsm-simulator:
-    image: tearust/nsm-simulator:epoch7-0.1
+    image: tearust/nsm-simulator:fast-0.7.1
     container_name: "delegate-nsm"
     ports:
       - 5999:5999
@@ -131,7 +131,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:epoch7-0.9
+    image: tearust/runtime:fast-0.7.1
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -148,7 +148,7 @@ services:
         max-size: "10m"
 
   vmh-server:
-    image: tearust/vmh-server:epoch7-0.4
+    image: tearust/vmh-server:fast-0.7.1
     container_name: "delegate-vmh"
     networks:
       - single-network
@@ -166,7 +166,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:epoch7-0.6
+    image: tearust/parent-instance-client:fast-0.7.1
     container_name: "delegate-client"
     networks:
       - single-network
