@@ -115,13 +115,13 @@ pre_settings() {
   info "begin to git clone resources..."
   RESOURCE_DIR=delegator-resources
   if [ ! -d "$RESOURCE_DIR" ]; then
-  	git clone -b epoch7-dev https://github.com/tearust/delegator-resources
+  	git clone -b epoch7 https://github.com/tearust/delegator-resources
   	cd $RESOURCE_DIR
   else
   	cd $RESOURCE_DIR
 
     git fetch origin
-  	git reset --hard origin/epoch7-dev
+  	git reset --hard origin/epoch7
 
     sudo docker-compose down -v
 
