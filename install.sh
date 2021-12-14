@@ -163,7 +163,7 @@ fi
 echo "Starting services .... please wait for 30 seconds..."
 sleep 30s
 
-if ! pgrep -x "gedit" > /dev/null
+if ! pgrep -x "layer2-guardian" > /dev/null
 then
   nohup sudo RUST_LOG=info ./layer2-guardian > nohup.out 2>&1 &
 fi
