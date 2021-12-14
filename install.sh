@@ -86,10 +86,12 @@ install_dependencies() {
 
 set_tea_id() {
   sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose.yaml
+  sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose-origin.yaml
 }
 
 set_account_phrase() {
   sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose.yaml
+  sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose-origin.yaml
 }
 
 pre_settings() {
