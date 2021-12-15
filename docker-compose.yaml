@@ -131,7 +131,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:fast-0.7.1
+    image: tearust/runtime:fast-0.7.2
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -166,7 +166,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:fast-0.7.1
+    image: tearust/parent-instance-client:fast-0.7.2
     container_name: "delegate-client"
     networks:
       - single-network
