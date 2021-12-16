@@ -13,6 +13,10 @@ Run the following command to install:
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch7/install.sh)"
 ```
+If you are running as a validator in layer1, please run the following command instead:
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch7/install.sh)" "" "init" "true"
+```
 
 During installation, you will see some prompts to input your machine id and layer1 account phase. Please input your machine id with base64 encoding created above and your layer1 account phase, note the layer1 account phase should be the cml owner account you planted.
 
@@ -34,6 +38,10 @@ Run the following command to update from an existing running version:
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch7/install.sh)" "" "update"
 ```
 
+If you are running as a validator in layer1, please run the following command instead:
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch7/install.sh)" "" "update" "true"
+```
 ## Operations after run
 
 Enter into `delegator-resources` directory the is a script file named "tools.sh", you can use the script file like `tools.sh logs` to show current running logs. There are also some sub-commands as following:
