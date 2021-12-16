@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 
 INSTALL_MODE=$1
+IS_VALIDATOR=$2
 : ${INSTALL_MODE:="init"}
+: ${IS_VALIDATOR:="false"}
+
 TEA_CONFIG="$HOME/.tea"
 
 set -eu
@@ -94,6 +97,11 @@ set_account_phrase() {
   sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose-origin.yaml
 }
 
+set_validator() {
+  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose.yaml
+  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose-origin.yaml
+}
+
 pre_settings() {
   if [ -e "$TEA_CONFIG" ]; then
     . $TEA_CONFIG
@@ -132,6 +140,10 @@ pre_settings() {
     fi
   fi
   completed "clone resources completed"
+
+  if [ $IS_VALIDATOR = "true" ]; then
+    set_validator
+  fi
 
   echo "DELEGATOR_RESOURCES_PATH=\"$PWD\"" >> $TEA_CONFIG
   set_tea_id
