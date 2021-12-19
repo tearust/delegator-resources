@@ -98,8 +98,8 @@ set_account_phrase() {
 }
 
 set_validator() {
-  sed -ri "s@--chain canary@--chain canary --validator --unsafe-rpc-external --rpc-methods Unsafe@" docker-compose.yaml
-  sed -ri "s@--chain canary@--chain canary --validator --unsafe-rpc-external --rpc-methods Unsafe@" docker-compose-origin.yaml
+  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose.yaml
+  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose-origin.yaml
 }
 
 pre_settings() {
