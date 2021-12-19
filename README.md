@@ -51,6 +51,7 @@ Enter into `delegator-resources` directory the is a script file named "tools.sh"
 - clean: Clean legacy data
 - health: Check if current running docker-compose is healthy or not
 - restart: Restart current running docker-compose file
+- sessionkey: Generate your session key
 
 ## Clean current running program
 
