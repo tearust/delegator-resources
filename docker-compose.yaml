@@ -18,7 +18,7 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed fast-0.7.2.1
+                      --genesis-seed fast-0.7.2
                       --initial-validator-count 7
                       --ws-max-connections 10000 
                       --unsafe-ws-external 
