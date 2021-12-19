@@ -15,8 +15,8 @@ elif [ $SUB_COMMAND = "health" ]; then
 elif [ $SUB_COMMAND = "restart" ]; then
 	sudo docker-compose down
 	sudo docker-compose up -d
-elif [ $SUB_COMMAND = "sessionkey"]; then
+elif [ $SUB_COMMAND = "sessionkey" ]; then
 	docker exec -it delegate-layer1 curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9933
 else
-	echo "supported subcommands: logs, stop, restart, clean, health"
+	echo "supported subcommands: logs, stop, restart, clean, health, sessionkey"
 fi
