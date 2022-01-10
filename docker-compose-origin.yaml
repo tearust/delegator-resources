@@ -132,7 +132,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:fast-0.7.3
+    image: tearust/runtime:fast-0.7.4
     container_name: "delegate-runtime"
     networks:
       - single-internal
