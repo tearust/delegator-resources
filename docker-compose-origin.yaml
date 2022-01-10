@@ -21,6 +21,7 @@ services:
                       --genesis-seed fast-0.7.2.1
                       --initial-validator-count 7
                       --ws-max-connections 10000 
+                      -lparity_ws=warn
                       --unsafe-ws-external 
                       --rpc-cors all 
                       --genesis-coupons-path /tea-camellia/epoch7.csv 
