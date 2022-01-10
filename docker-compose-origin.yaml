@@ -167,7 +167,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:fast-0.7.3
+    image: tearust/parent-instance-client:fast-0.7.4
     container_name: "delegate-client"
     networks:
       - single-network
