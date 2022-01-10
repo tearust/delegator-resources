@@ -185,6 +185,7 @@ services:
       TEA_ID: 3zjLTxJHkEHI6NI4EJ7yoVCwF/OCIG4k/uky5jfC23s=
       TEA_ENV_SETTINGS:
         MODE:DEV
+        CML_TYPE:C
         PUBLIC_URLS:https://tearust.com
         FLUENCER_HTTP_MODE:leader-only
       LAYER1_NODE_IP: layer1
