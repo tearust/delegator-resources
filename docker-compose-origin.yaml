@@ -132,7 +132,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:fast-0.7.4
+    image: tearust/runtime:fast-0.7.5
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -149,7 +149,7 @@ services:
         max-size: "10m"
 
   vmh-server:
-    image: tearust/vmh-server:fast-0.7.2
+    image: tearust/vmh-server:fast-0.7.3
     container_name: "delegate-vmh"
     networks:
       - single-network
@@ -167,7 +167,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:fast-0.7.4
+    image: tearust/parent-instance-client:fast-0.7.5
     container_name: "delegate-client"
     networks:
       - single-network
