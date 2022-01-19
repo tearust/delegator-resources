@@ -7,7 +7,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:fast-0.7.3
+    image: tearust/tea-camellia:fast-0.8.0
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -18,16 +18,16 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed fast-0.7.2.1
+                      --genesis-seed fast-0.8.0
                       --initial-validator-count 7
                       --ws-max-connections 10000 
                       -lparity_ws=warn
                       --unsafe-ws-external 
                       --rpc-cors all 
-                      --genesis-coupons-path /tea-camellia/epoch7.csv 
+                      --genesis-coupons-path /tea-camellia/epoch8.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWFt4qDf6Nsmo9oFvGuVPMHHjrAWCXFvrBrHQfsoo5B4tn
-                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWD8AiZyQAXiDDhs9uJRjV5ASYFxACdvMNTv6eeodAPAyB"
+                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWJmnKbzwcKiiDECeMLmRqRnK8JHqgvy6qoWNfBmnrRE7H
+                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWETBHFSFoMMX8YSSc2VuADhViya4z4XJteC1PQPzErL4H"
     networks:
       - single-network
     logging:
@@ -78,7 +78,7 @@ services:
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
-      - NONCE=epoch7-0.1
+      - NONCE=epoch8-0.1
       - GLOBAL_BBS_DB=test
     networks:
       - single-network
@@ -118,7 +118,7 @@ services:
 
   # ################ Simulator  ##############
   nsm-simulator:
-    image: tearust/nsm-simulator:fast-0.7.1
+    image: tearust/nsm-simulator:fast-0.8.0
     container_name: "delegate-nsm"
     ports:
       - 5999:5999
@@ -132,7 +132,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:fast-0.7.5
+    image: tearust/runtime:fast-0.8.0
     container_name: "delegate-runtime"
     networks:
       - single-internal
@@ -149,7 +149,7 @@ services:
         max-size: "10m"
 
   vmh-server:
-    image: tearust/vmh-server:fast-0.7.3
+    image: tearust/vmh-server:fast-0.8.0
     container_name: "delegate-vmh"
     networks:
       - single-network
@@ -167,7 +167,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:fast-0.7.6
+    image: tearust/parent-instance-client:fast-0.8.0
     container_name: "delegate-client"
     networks:
       - single-network
