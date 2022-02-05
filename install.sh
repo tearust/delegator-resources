@@ -102,6 +102,18 @@ set_validator() {
   sed -ri "s@--chain canary@--chain canary --validator@" docker-compose-origin.yaml
 }
 
+sys_settings() {
+  sudo sysctl -w kernel.threads-max=2061206
+  sudo sysctl -w kernel.pid_max=4194303
+  sudo sysctl -w vm.max_map_count=4194303
+
+  echo "* soft nproc 1030603" >> /etc/security/limits.conf
+  echo "* hard nproc 1030603" >> /etc/security/limits.conf
+  echo "* soft nproc 65536" >> /etc/security/limits.d/20-nproc.conf
+  ulimit -SHu 65535
+  ulimit -SHn 65535
+}
+
 pre_settings() {
   if [ -e "$TEA_CONFIG" ]; then
     . $TEA_CONFIG
@@ -148,6 +160,7 @@ pre_settings() {
   echo "DELEGATOR_RESOURCES_PATH=\"$PWD\"" >> $TEA_CONFIG
   set_tea_id
   set_account_phrase
+  sys_settings
 }
 
 MEM_SIZE=`grep MemTotal /proc/meminfo | awk '{printf "%.0f", ($2 / 1024)}'`
