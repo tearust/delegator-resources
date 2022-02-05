@@ -1,50 +1,12 @@
 version: "3.1"
 
-networks:
-  single-network:
-  single-internal:
-    internal: true
 services:
-  ##################    Layer1   #######################
-  layer1:
-    image: tearust/tea-camellia:fast-0.8.0
-    container_name: delegate-layer1
-    ports:
-      - 9944:9944
-      - 9933:9933
-      - 30333:30333
-    volumes:
-      - .layer1:/root/.local
-      - ./data:/tea-camellia
-    command: bash -c "tea-camellia 
-                      --chain canary 
-                      --genesis-seed fast-0.8.0
-                      --initial-validator-count 7
-                      --ws-max-connections 10000 
-                      -lparity_ws=warn
-                      --unsafe-ws-external 
-                      --rpc-cors all 
-                      --genesis-coupons-path /tea-camellia/epoch8.csv 
-                      --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWJmnKbzwcKiiDECeMLmRqRnK8JHqgvy6qoWNfBmnrRE7H
-                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWETBHFSFoMMX8YSSc2VuADhViya4z4XJteC1PQPzErL4H"
-    networks:
-      - single-network
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "3"
-        max-size: "10m"
-
   #####################   IPFS     #####################
 
   ipfs:
     image: ipfs/go-ipfs:v0.8.0
     container_name: delegate-ipfs
-    ports:
-      - 4001:4001
-      - 5001:5001
-      - 8080:8080
+    network_mode: host
     volumes:
       - .ipfs_data:/data/ipfs
       - .ipfs:/ipfs/config
@@ -52,8 +14,6 @@ services:
       IPFS_SWARM_KEY_FILE: /ipfs/config/swarm.key
     entrypoint: []
     command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
-    networks:
-      - single-network
     logging:
       driver: "json-file"
       options:
@@ -67,21 +27,18 @@ services:
     depends_on: 
       - "ipfs"
     restart: always
-    ports:
-      - 6001:6001
+    network_mode: host
     env_file: .env
     volumes:
       - .orbitdb:/orbitdb
     command: ["node", "--max-old-space-size=512", "src/cli.js", "api", "--orbitdb-dir", "/orbitdb", "--no-https", "--http1", "--api-port", "6001"]
     environment: 
-      - IPFS_HOST=ipfs
+      - IPFS_HOST=localhost
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
       - NONCE=epoch8-0.1
       - GLOBAL_BBS_DB=test
-    networks:
-      - single-network
     logging:
       driver: "json-file"
       options:
@@ -95,21 +52,17 @@ services:
     container_name: "delegate-adapter"
     depends_on: 
       - "orbitdb"
-    ports:
-      - 8000:8000
-      - 5011:5011
+    network_mode: host
     environment:
       IPFS_PORT: 5001
-      IPFS_SERVER: ipfs
-      RPC_CLIENTURL: http://parent-instance-client:5010
-      WAIT_HOSTS: ipfs:5001
+      IPFS_SERVER: localhost
+      RPC_CLIENTURL: http://localhost:5010
+      WAIT_HOSTS: localhost:5001
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
-      ORBITDB_SERVER: orbitdb
+      ORBITDB_SERVER: localhost
       ORBITDB_PORT: 6001
       LAYER1_WALLET: https://wallet.teaproject.org
-    networks:
-      - single-network
     logging:
       driver: "json-file"
       options:
@@ -120,10 +73,7 @@ services:
   nsm-simulator:
     image: tearust/nsm-simulator:fast-0.8.0
     container_name: "delegate-nsm"
-    ports:
-      - 5999:5999
-    networks:
-      - single-internal
+    network_mode: host
     logging:
       driver: "json-file"
       options:
@@ -134,12 +84,11 @@ services:
   runtime:
     image: tearust/runtime:fast-0.8.0
     container_name: "delegate-runtime"
-    networks:
-      - single-internal
+    network_mode: host
     environment:
-      VMH_HOST: vmh-server
-      SIM_CLIENT_URL: http://nsm-simulator:5999
-      WAIT_HOSTS: nsm-simulator:5999
+      VMH_HOST: localhost
+      SIM_CLIENT_URL: http://localhost:5999
+      WAIT_HOSTS: localhost:5999
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
     logging:
@@ -151,13 +100,11 @@ services:
   vmh-server:
     image: tearust/vmh-server:fast-0.8.0
     container_name: "delegate-vmh"
-    networks:
-      - single-network
-      - single-internal
+    network_mode: host
     environment:
-      CLIENT_HOST: parent-instance-client
-      ENCLAVE_HOST: runtime
-      WAIT_HOSTS: runtime:5006
+      CLIENT_HOST: localhost
+      ENCLAVE_HOST: localhost
+      WAIT_HOSTS: localhost:5006
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
     logging:
@@ -169,18 +116,17 @@ services:
   parent-instance-client:
     image: tearust/parent-instance-client:fast-0.8.0
     container_name: "delegate-client"
-    networks:
-      - single-network
+    network_mode: host
     volumes:
       - .log:/log
     # make sure 5998 port is available on server
     ports:
       - 5998:5998
     environment:
-      ADAPTER_CLIENT_URL: http://adapter:5011
+      ADAPTER_CLIENT_URL: http://localhost:5011
       LOG_FILE: /log/output.log
-      VMH_HOST: vmh-server
-      IPFS_HOST: ipfs
+      VMH_HOST: localhost
+      IPFS_HOST: localhost
       IPFS_PORT: 5001
       TEA_ID: 3zjLTxJHkEHI6NI4EJ7yoVCwF/OCIG4k/uky5jfC23s=
       TEA_ENV_SETTINGS:
@@ -188,16 +134,16 @@ services:
         CML_TYPE:C
         PUBLIC_URLS:https://tearust.com
         FLUENCER_HTTP_MODE:leader-only
-      LAYER1_NODE_IP: layer1
+      LAYER1_NODE_IP: localhost
       LAYER1_NODE_PORT: 9944
       LAYER1_ACCOUNT: //Alice
-      ORBITDB_IP: orbitdb
+      ORBITDB_IP: localhost
       ORBITDB_PORT: 6001
       LIBP2P_ADDRESS: /ip4/138.68.21.103/tcp/5998
       LIBP2P_BOOTNODES: 
         /ip4/138.68.21.103/tcp/5998
         /ip4/138.68.247.206/tcp/5998
-      WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
+      WAIT_HOSTS: localhost:5007, localhost:8000, localhost:5001, localhost:9944
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
     logging:
