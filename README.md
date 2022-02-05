@@ -9,18 +9,24 @@ Then you will start mining(aka plant) cml with your hex encoded machine id creat
 
 ## Run
 
+### Run layer1
 Run the following command to install:
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/two-layers/install.sh)"
 ```
 If you are running as a validator in layer1, please run the following command instead:
 ```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/two-layers/install.sh)" "" "init" "true"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/two-layers/install.sh)" "true" "init" "true"
 ```
 
-During installation, you will see some prompts to input your machine id and layer1 account phase. Please input your machine id with base64 encoding created above and your layer1 account phase, note the layer1 account phase should be the cml owner account you planted.
+### Run layer2
 
-After setting machine id and layer1 account phase, you should see logs about environment setting, finally you should see the log as follows:
+Run the following command to install:
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/two-layers/install.sh)" "false" "init"
+```
+
+Finally you should see the log as follows:
 ```
 docker start completed
 ```
