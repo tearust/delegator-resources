@@ -136,7 +136,9 @@ pre_settings() {
     sudo docker-compose down -v
 
     if [ $INSTALL_MODE = "init" ]; then
-  	  sudo rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
+      if [ $IS_LAYER1 = "true" ]; then
+  	    sudo rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
+      fi
     fi
   fi
   completed "clone resources completed"
