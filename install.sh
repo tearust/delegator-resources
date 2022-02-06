@@ -133,12 +133,16 @@ pre_settings() {
     git fetch origin
   	git reset --hard origin/two-layers
 
-    sudo docker-compose down -v
-
     if [ $INSTALL_MODE = "init" ]; then
       if [ $IS_LAYER1 = "true" ]; then
+        sudo docker-compose -f docker-compose-layer1.yaml down -v
   	    sudo rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
+      else
+        sudo docker-compose -f docker-compose-layer2.yaml down -v
       fi
+    else
+      sudo docker-compose -f docker-compose-layer1.yaml down -v
+      sudo docker-compose -f docker-compose-layer2.yaml down -v
     fi
   fi
   completed "clone resources completed"
@@ -160,7 +164,7 @@ fi
 
 cd $HOME
 
-info "install mode: $INSTALL_MODE"
+info "install mode: $INSTALL_MODE, is validator: $IS_VALIDATOR, is layer1: $IS_LAYER1"
 
 info "begin to pre settings..."
 pre_settings
