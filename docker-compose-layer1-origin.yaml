@@ -1,10 +1,19 @@
 version: "3.1"
 
+networks:
+  default:
+    external:
+      name: single-network
+
 services:
+  ##################    Layer1   #######################
   layer1:
     image: tearust/tea-camellia:fast-0.8.0
     container_name: delegate-layer1
-    network_mode: host
+    ports:
+      - 9944:9944
+      - 9933:9933
+      - 30333:30333
     volumes:
       - .layer1:/root/.local
       - ./data:/tea-camellia

@@ -174,6 +174,7 @@ info "begin to install dependencies..."
 install_dependencies
 completed "install dependencies completed"
 
+sudo docker network create single-network || true
 if [ $INSTALL_MODE = "init" ]; then
   if [ $IS_LAYER1 = "true" ]; then
     sudo docker-compose -f docker-compose-layer1-origin.yaml up -d
