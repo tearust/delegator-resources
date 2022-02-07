@@ -12,7 +12,7 @@ Then you will start mining(aka plant) cml with your hex encoded machine id creat
 ### Run layer1
 Run the following command to install:
 ```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/two-layers/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/two-layers/install.sh)" "true" "init"
 ```
 If you are running as a validator in layer1, please run the following command instead:
 ```
