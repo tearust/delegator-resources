@@ -8,7 +8,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:fast-0.8.0
+    image: tearust/tea-camellia:0.8.15
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -19,16 +19,14 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed fast-0.8.0
-                      --initial-validator-count 7
+                      --genesis-seed 0.8.15.3
+                      --initial-validator-count 5
                       --ws-max-connections 10000 
                       -lparity_ws=warn
                       --unsafe-ws-external 
                       --rpc-cors all 
-                      --genesis-coupons-path /tea-camellia/epoch8.csv 
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWJmnKbzwcKiiDECeMLmRqRnK8JHqgvy6qoWNfBmnrRE7H
-                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWETBHFSFoMMX8YSSc2VuADhViya4z4XJteC1PQPzErL4H"
+                      --bootnodes /ip4/159.89.149.143/tcp/30333/p2p/12D3KooWNPLdCwQjECGwic2sREKz4SbkFu6yxZqsuH9zE86spBtB"
     logging:
       driver: "json-file"
       options:

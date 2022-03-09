@@ -30,7 +30,7 @@ services:
 
   #####################   Orbit     ##################### 
   orbitdb:
-    image: tearust/tea-orbit-db-http-api:v0.0.13
+    image: tearust/tea-orbit-db-http-api:v0.8.2
     container_name: delegate-orbitdb
     depends_on: 
       - "ipfs"
@@ -46,7 +46,7 @@ services:
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
-      - NONCE=epoch8-0.1
+      - NONCE=epoch8-0.4.15
       - GLOBAL_BBS_DB=test
     logging:
       driver: "json-file"
@@ -82,7 +82,7 @@ services:
 
   # ################ Simulator  ##############
   nsm-simulator:
-    image: tearust/nsm-simulator:fast-0.8.0
+    image: tearust/nsm-simulator:0.8.1
     container_name: "delegate-nsm"
     ports:
       - 5999:5999
@@ -94,7 +94,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:fast-0.8.0
+    image: tearust/runtime:0.8.56
     container_name: "delegate-runtime"
     environment:
       VMH_HOST: vmh-server
@@ -109,7 +109,7 @@ services:
         max-size: "10m"
 
   vmh-server:
-    image: tearust/vmh-server:fast-0.8.0
+    image: tearust/vmh-server:0.8.8
     container_name: "delegate-vmh"
     environment:
       CLIENT_HOST: parent-instance-client
@@ -124,10 +124,11 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:fast-0.8.0
+    image: tearust/parent-instance-client:0.8.14
     container_name: "delegate-client"
     volumes:
       - .log:/log
+      - .libp2p:/libp2p
     # make sure 5998 port is available on server
     ports:
       - 5998:5998
@@ -140,7 +141,6 @@ services:
       TEA_ID: 3zjLTxJHkEHI6NI4EJ7yoVCwF/OCIG4k/uky5jfC23s=
       TEA_ENV_SETTINGS:
         MODE:DEV
-        CML_TYPE:C
         PUBLIC_URLS:https://tearust.com
         FLUENCER_HTTP_MODE:leader-only
       LAYER1_NODE_IP: layer1
@@ -148,10 +148,9 @@ services:
       LAYER1_ACCOUNT: //Alice
       ORBITDB_IP: orbitdb
       ORBITDB_PORT: 6001
-      LIBP2P_ADDRESS: /ip4/138.68.21.103/tcp/5998
+      LIBP2P_NODE_KEY_PATH: /libp2p/key
       LIBP2P_BOOTNODES: 
-        /ip4/138.68.21.103/tcp/5998
-        /ip4/138.68.247.206/tcp/5998
+        /ip4/159.89.149.143/tcp/5998
       WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
