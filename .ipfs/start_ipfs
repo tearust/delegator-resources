@@ -118,11 +118,8 @@ fi
 ipfs config --json Experimental.Libp2pStreamMounting true
 ipfs config --json Swarm.EnableRelayHop true
 
-## alice
-ipfs bootstrap add /ip4/64.227.105.212/tcp/4001/p2p/12D3KooWBXnrRWGMNkE8to5fnD9Z1j9NhTXSxWHkP7ZM648BgD3E
-
-## bob
-ipfs bootstrap add /ip4/164.90.159.26/tcp/4001/p2p/12D3KooWHqVAepKJobXuRZ5btyDdaNMgS3X1iDaMx6yY7TFHG9sh
+# to a1
+ipfs bootstrap add /ip4/159.89.149.143/tcp/4001/p2p/12D3KooWGDQ9hb5YqcfFaWEJJVNrs9eii5hgvahTAAbz6iuVZsjH
 
 # ******* add for teaproject by jacky end ********
 
