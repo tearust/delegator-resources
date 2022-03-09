@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 
+IS_LAYER1=$0
 INSTALL_MODE=$1
 IS_VALIDATOR=$2
+: ${IS_LAYER1:="true"}
 : ${INSTALL_MODE:="init"}
 : ${IS_VALIDATOR:="false"}
 
@@ -88,18 +90,16 @@ install_dependencies() {
 }
 
 set_tea_id() {
-  sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose.yaml
-  sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose-origin.yaml
+  sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose-layer2.yaml
 }
 
 set_account_phrase() {
-  sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose.yaml
-  sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose-origin.yaml
+  sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose-layer2.yaml
 }
 
 set_validator() {
-  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose.yaml
-  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose-origin.yaml
+  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose-layer1.yaml
+  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose-layer1-origin.yaml
 }
 
 pre_settings() {
@@ -125,18 +125,24 @@ pre_settings() {
   info "begin to git clone resources..."
   RESOURCE_DIR=delegator-resources
   if [ ! -d "$RESOURCE_DIR" ]; then
-  	git clone -b epoch8 https://github.com/tearust/delegator-resources
+  	git clone -b two-layers https://github.com/tearust/delegator-resources
   	cd $RESOURCE_DIR
   else
   	cd $RESOURCE_DIR
 
     git fetch origin
-  	git reset --hard origin/epoch8
-
-    sudo docker-compose down -v
+  	git reset --hard origin/two-layers
 
     if [ $INSTALL_MODE = "init" ]; then
-  	  sudo rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
+      if [ $IS_LAYER1 = "true" ]; then
+        sudo docker-compose -f docker-compose-layer1.yaml down -v
+  	    sudo rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
+      else
+        sudo docker-compose -f docker-compose-layer2.yaml down -v
+      fi
+    else
+      sudo docker-compose -f docker-compose-layer1.yaml down -v
+      sudo docker-compose -f docker-compose-layer2.yaml down -v
     fi
   fi
   completed "clone resources completed"
@@ -158,7 +164,7 @@ fi
 
 cd $HOME
 
-info "install mode: $INSTALL_MODE"
+info "install mode: $INSTALL_MODE, is validator: $IS_VALIDATOR, is layer1: $IS_LAYER1"
 
 info "begin to pre settings..."
 pre_settings
@@ -168,10 +174,16 @@ info "begin to install dependencies..."
 install_dependencies
 completed "install dependencies completed"
 
+sudo docker network create single-network || true
 if [ $INSTALL_MODE = "init" ]; then
-  sudo docker-compose -f docker-compose-origin.yaml up -d
+  if [ $IS_LAYER1 = "true" ]; then
+    sudo docker-compose -f docker-compose-layer1-origin.yaml up -d
+  else
+    sudo docker-compose -f docker-compose-layer2.yaml up -d
+  fi
 else
-  sudo docker-compose up -d
+  sudo docker-compose -f docker-compose-layer1.yaml up -d
+  sudo docker-compose -f docker-compose-layer2.yaml up -d
 fi
 
 echo "Starting services .... please wait for 30 seconds..."

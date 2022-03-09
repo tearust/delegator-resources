@@ -1,41 +1,11 @@
 version: "3.1"
 
 networks:
-  single-network:
-  single-internal:
-    internal: true
-services:
-  ##################    Layer1   #######################
-  layer1:
-    image: tearust/tea-camellia:fast-0.8.0
-    container_name: delegate-layer1
-    ports:
-      - 9944:9944
-      - 9933:9933
-      - 30333:30333
-    volumes:
-      - .layer1:/root/.local
-      - ./data:/tea-camellia
-    command: bash -c "tea-camellia 
-                      --chain canary 
-                      --genesis-seed fast-0.8.0
-                      --initial-validator-count 7
-                      --ws-max-connections 10000 
-                      -lparity_ws=warn
-                      --unsafe-ws-external 
-                      --rpc-cors all 
-                      --genesis-coupons-path /tea-camellia/epoch8.csv 
-                      --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
-                      --bootnodes /ip4/64.227.105.212/tcp/30333/p2p/12D3KooWJmnKbzwcKiiDECeMLmRqRnK8JHqgvy6qoWNfBmnrRE7H
-                      --bootnodes /ip4/164.90.159.26/tcp/30333/p2p/12D3KooWETBHFSFoMMX8YSSc2VuADhViya4z4XJteC1PQPzErL4H"
-    networks:
-      - single-network
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "3"
-        max-size: "10m"
+  default:
+    external:
+      name: single-network
 
+services:
   #####################   IPFS     #####################
 
   ipfs:
@@ -52,8 +22,6 @@ services:
       IPFS_SWARM_KEY_FILE: /ipfs/config/swarm.key
     entrypoint: []
     command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
-    networks:
-      - single-network
     logging:
       driver: "json-file"
       options:
@@ -80,8 +48,6 @@ services:
       - ADMIN_LIST=${ADMIN_LIST}
       - NONCE=epoch8-0.1
       - GLOBAL_BBS_DB=test
-    networks:
-      - single-network
     logging:
       driver: "json-file"
       options:
@@ -108,8 +74,6 @@ services:
       ORBITDB_SERVER: orbitdb
       ORBITDB_PORT: 6001
       LAYER1_WALLET: https://wallet.teaproject.org
-    networks:
-      - single-network
     logging:
       driver: "json-file"
       options:
@@ -122,8 +86,6 @@ services:
     container_name: "delegate-nsm"
     ports:
       - 5999:5999
-    networks:
-      - single-internal
     logging:
       driver: "json-file"
       options:
@@ -134,8 +96,6 @@ services:
   runtime:
     image: tearust/runtime:fast-0.8.0
     container_name: "delegate-runtime"
-    networks:
-      - single-internal
     environment:
       VMH_HOST: vmh-server
       SIM_CLIENT_URL: http://nsm-simulator:5999
@@ -151,9 +111,6 @@ services:
   vmh-server:
     image: tearust/vmh-server:fast-0.8.0
     container_name: "delegate-vmh"
-    networks:
-      - single-network
-      - single-internal
     environment:
       CLIENT_HOST: parent-instance-client
       ENCLAVE_HOST: runtime
@@ -169,8 +126,6 @@ services:
   parent-instance-client:
     image: tearust/parent-instance-client:fast-0.8.0
     container_name: "delegate-client"
-    networks:
-      - single-network
     volumes:
       - .log:/log
     # make sure 5998 port is available on server
@@ -205,7 +160,3 @@ services:
       options:
         max-file: "3"
         max-size: "10m"
-
-    # entrypoint: /bin/bash
-    # stdin_open: true # docker run -i
-    # tty: true        # docker run -t
