@@ -151,6 +151,8 @@ services:
       LIBP2P_NODE_KEY_PATH: /libp2p/key
       LIBP2P_BOOTNODES: 
         /ip4/159.89.149.143/tcp/5998
+        /ip4/138.68.56.121/tcp/5998
+        /ip4/159.89.149.231/tcp/5998
       WAIT_HOSTS: vmh-server:5007, adapter:8000, ipfs:5001, layer1:9944
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5

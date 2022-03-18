@@ -25,6 +25,7 @@ services:
                       -lparity_ws=warn
                       --unsafe-ws-external 
                       --rpc-cors all 
+                      --no-mdns
                       --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0'
                       --bootnodes /ip4/159.89.149.143/tcp/30333/p2p/12D3KooWNPLdCwQjECGwic2sREKz4SbkFu6yxZqsuH9zE86spBtB"
     logging:
