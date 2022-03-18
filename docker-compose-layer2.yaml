@@ -94,7 +94,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:0.8.56
+    image: tearust/runtime:0.8.63
     container_name: "delegate-runtime"
     environment:
       VMH_HOST: vmh-server
@@ -109,7 +109,7 @@ services:
         max-size: "10m"
 
   vmh-server:
-    image: tearust/vmh-server:0.8.8
+    image: tearust/vmh-server:0.8.9
     container_name: "delegate-vmh"
     environment:
       CLIENT_HOST: parent-instance-client
@@ -124,7 +124,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:0.8.14
+    image: tearust/parent-instance-client:0.8.17
     container_name: "delegate-client"
     volumes:
       - .log:/log
