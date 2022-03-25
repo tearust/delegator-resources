@@ -8,7 +8,7 @@ networks:
 services:
   ##################    Layer1   #######################
   layer1:
-    image: tearust/tea-camellia:0.8.15
+    image: tearust/tea-camellia:0.8.17
     container_name: delegate-layer1
     ports:
       - 9944:9944
@@ -19,7 +19,7 @@ services:
       - ./data:/tea-camellia
     command: bash -c "tea-camellia 
                       --chain canary 
-                      --genesis-seed 0.8.15.3
+                      --genesis-seed 0.8.17
                       --initial-validator-count 5
                       --ws-max-connections 10000 
                       -lparity_ws=warn

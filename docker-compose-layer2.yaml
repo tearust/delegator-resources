@@ -46,7 +46,7 @@ services:
       - IPFS_PORT=5001
       - SEED=${SEED}
       - ADMIN_LIST=${ADMIN_LIST}
-      - NONCE=epoch8-0.4.15
+      - NONCE=epoch8-0.4.16
       - GLOBAL_BBS_DB=test
     logging:
       driver: "json-file"
@@ -94,7 +94,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:0.8.63
+    image: tearust/runtime:0.8.76
     container_name: "delegate-runtime"
     environment:
       VMH_HOST: vmh-server
@@ -124,7 +124,7 @@ services:
         max-size: "10m"
 
   parent-instance-client:
-    image: tearust/parent-instance-client:0.8.17
+    image: tearust/parent-instance-client:0.8.21
     container_name: "delegate-client"
     volumes:
       - .log:/log
