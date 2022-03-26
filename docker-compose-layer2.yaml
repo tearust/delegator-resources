@@ -94,7 +94,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:0.8.76
+    image: tearust/runtime:0.8.79
     container_name: "delegate-runtime"
     environment:
       VMH_HOST: vmh-server
