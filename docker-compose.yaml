@@ -1,0 +1,95 @@
+version: "3.1"
+
+networks:
+  single-network:
+  single-internal:
+    internal: true
+services:
+  ################ Adapter  ##############
+
+  adapter:
+    image: tearust/adapter:epoch5-0.4
+    container_name: "adapter"
+    ports:
+      - 8000:8000
+      - 5011:5011
+    environment:
+      IPFS_PORT: 5001
+      IPFS_SERVER: ipfs
+      RPC_CLIENTURL: http://parent-instance-client:5010
+      WAIT_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 5
+    networks:
+      - single-network
+
+  ################ Simulator  ##############
+  nsm-simulator:
+    image: tearust/nsm-simulator:0.10.2
+    container_name: "nsm-simulator"
+    ports:
+      - 5999:5999
+    networks:
+      - single-internal
+
+  ################ Runtime  ##############
+  runtime:
+    image: tearust/runtime:0.10.31
+    container_name: "runtime"
+    networks:
+      - single-internal
+    environment:
+      VMH_HOST: vmh-server
+      SIM_CLIENT_URL: http://nsm-simulator:5999
+      WAIT_HOSTS: nsm-simulator:5999
+      WAIT_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 5
+
+  vmh-server:
+    image: tearust/vmh-server:0.10.2
+    container_name: "vmh-server"
+    networks:
+      - single-network
+      - single-internal
+    environment:
+      CLIENT_HOST: parent-instance-client
+      ENCLAVE_HOST: runtime
+      WAIT_HOSTS: runtime:5006
+      WAIT_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 5
+
+  parent-instance-client:
+    image: tearust/parent-instance-client:0.10.9
+    container_name: "parent-instance-client"
+    networks:
+      - single-network
+    volumes:
+      - .log:/log
+      - .tokenstate:/tokenstate
+      - .libp2p:/libp2p
+    ports:
+      - 5998:5998
+    environment:
+      ADAPTER_CLIENT_URL: http://adapter:5011
+      ADAPTER_SERVER_PORT: 5010
+      LOG_FILE: /log/output.log
+      VMH_HOST: vmh-server
+      TEA_ID: ${TEA_ID}
+      TEA_ENV_SETTINGS:
+        MODE:DEV
+        PUBLIC_URLS:https://tearust.com
+        APPLY_VALIDATOR:false
+        STARTUP_OWNER:5D2od84fg3GScGR139Li56raDWNQQhzgYbV7QsEJKS4KfTGv
+        VALIDATORS_MIN_COUNT:2
+        VALIDATORS_DESIRED_COUNT:5
+        ENABLE_PRESSURE_TEST:false
+        IP_ADDRESS:${IP_ADDRESS}
+      LIBP2P_NODE_KEY_PATH: /libp2p/key
+      LIBP2P_BOOTNODES: 
+        /ip4/164.90.197.175/tcp/5998
+        /ip4/164.90.205.42/tcp/5998
+      LIBP2P_VERSION: "epoch10.0"
+      STATE_MAGIC_NUMBER: 100
+      PERSIST_PATH: /tokenstate/persist
+      WAIT_HOSTS: vmh-server:5007, adapter:8000
+      WAIT_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 5

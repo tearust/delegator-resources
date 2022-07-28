@@ -1,12 +1,5 @@
 #!/usr/bin/env sh
 
-IS_LAYER1=$0
-INSTALL_MODE=$1
-IS_VALIDATOR=$2
-: ${IS_LAYER1:="true"}
-: ${INSTALL_MODE:="init"}
-: ${IS_VALIDATOR:="false"}
-
 TEA_CONFIG="$HOME/.tea"
 
 set -eu
@@ -89,17 +82,16 @@ install_dependencies() {
 	install_docker
 }
 
-set_tea_id() {
-  sed -ri "s@^(\s*)(TEA_ID:\s*.*$)@\1TEA_ID: ${MY_TEA_ID}@" docker-compose-layer2.yaml
-}
-
-set_account_phrase() {
-  sed -ri "s@^(\s*)(LAYER1_ACCOUNT:\s*.*$)@\1LAYER1_ACCOUNT: ${MY_LAYER1_ACCOUNT}@" docker-compose-layer2.yaml
-}
-
-set_validator() {
-  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose-layer1.yaml
-  sed -ri "s@--chain canary@--chain canary --validator@" docker-compose-layer1-origin.yaml
+confirm_ip_address() {
+    echo "please enter your ip address..."
+    set +e
+    read -r IP </dev/tty
+    rc=$?
+    set -e
+    if [ $rc -ne 0 ]; then
+      error "Error reading from prompt (please re-run to type ip address)"
+      exit 1
+    fi
 }
 
 pre_settings() {
@@ -125,46 +117,34 @@ pre_settings() {
   info "begin to git clone resources..."
   RESOURCE_DIR=delegator-resources
   if [ ! -d "$RESOURCE_DIR" ]; then
-  	git clone -b epoch9 https://github.com/tearust/delegator-resources
+  	git clone -b epoch10 https://github.com/tearust/delegator-resources
   	cd $RESOURCE_DIR
   else
   	cd $RESOURCE_DIR
 
     git fetch origin
-  	git reset --hard origin/epoch9
+  	git reset --hard origin/epoch10
 
-    if [ $INSTALL_MODE = "init" ]; then
-      if [ $IS_LAYER1 = "true" ]; then
-        sudo docker-compose -f docker-compose-layer1.yaml down -v
-  	    sudo rm -rf .layer1/share/tea-camellia/chains/tea-layer1/db
-      else
-        sudo docker-compose -f docker-compose-layer2.yaml down -v
-      fi
-    else
-      sudo docker-compose -f docker-compose-layer1.yaml down -v
-      sudo docker-compose -f docker-compose-layer2.yaml down -v
-    fi
+    sudo docker-compose down -v
   fi
   completed "clone resources completed"
 
-  if [ $IS_VALIDATOR = "true" ]; then
-    set_validator
-  fi
+  ENV_FILE=.env
+  if [ ! -d "$ENV_FILE" ]; then
+    cp $TEA_CONFIG $ENV_FILE
 
-  echo "DELEGATOR_RESOURCES_PATH=\"$PWD\"" >> $TEA_CONFIG
-  set_tea_id
-  set_account_phrase
+    confirm_ip_address
+    echo "IP_ADDRESS=$IP" >> $ENV_FILE
+  fi
 }
 
 MEM_SIZE=`grep MemTotal /proc/meminfo | awk '{printf "%.0f", ($2 / 1024)}'`
-if [ "$MEM_SIZE" -lt 1800 ]; then
-  error "Machine memory size should larger equal than 2G"
+if [ "$MEM_SIZE" -lt 900 ]; then
+  error "Machine memory size should larger equal than 1G"
   exit 1
 fi
 
 cd $HOME
-
-info "install mode: $INSTALL_MODE, is validator: $IS_VALIDATOR, is layer1: $IS_LAYER1"
 
 info "begin to pre settings..."
 pre_settings
@@ -174,24 +154,9 @@ info "begin to install dependencies..."
 install_dependencies
 completed "install dependencies completed"
 
-sudo docker network create single-network || true
-if [ $INSTALL_MODE = "init" ]; then
-  if [ $IS_LAYER1 = "true" ]; then
-    sudo docker-compose -f docker-compose-layer1-origin.yaml up -d
-  else
-    sudo docker-compose -f docker-compose-layer2.yaml up -d
-  fi
-else
-  sudo docker-compose -f docker-compose-layer1.yaml up -d
-  sudo docker-compose -f docker-compose-layer2.yaml up -d
-fi
+sudo docker-compose up -d
 
 echo "Starting services .... please wait for 30 seconds..."
 sleep 30s
-
-if ! pgrep -x "layer2-guardian" > /dev/null
-then
-  nohup sudo RUST_LOG=info ./layer2-guardian > nohup.out 2>&1 &
-fi
 
 completed "docker start completed"

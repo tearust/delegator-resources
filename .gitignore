@@ -7,3 +7,4 @@
 .layer1
 .log/*
 nohup.out
+.env
