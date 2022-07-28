@@ -102,13 +102,8 @@ pre_settings() {
     exit
   fi
 
-  if [ -z "$MY_TEA_ID" ]; then
-    error "please input \"Machine Id\""
-    exit 1
-  fi
-
-  if [ -z "$MY_LAYER1_ACCOUNT" ]; then
-    error "please input \"Account Phrase\""
+  if [ -z "$TEA_ID" ]; then
+    error "please input \"Tea Id\""
     exit 1
   fi
 
