@@ -119,8 +119,6 @@ pre_settings() {
 
     git fetch origin
   	git reset --hard origin/epoch10
-
-    sudo docker-compose down -v
   fi
   completed "clone resources completed"
 
@@ -149,6 +147,7 @@ info "begin to install dependencies..."
 install_dependencies
 completed "install dependencies completed"
 
+sudo docker-compose down -v
 sudo docker-compose up -d
 
 echo "Starting services .... please wait for 30 seconds..."
