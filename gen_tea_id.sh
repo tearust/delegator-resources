@@ -3,8 +3,8 @@
 TEA_CONFIG="$HOME/.tea"
 
 MEM_SIZE=`grep MemTotal /proc/meminfo | awk '{printf "%.0f", ($2 / 1024)}'`
-if [ "$MEM_SIZE" -lt 1800 ]; then
-  echo "Machine memory size should larger equal than 2G"
+if [ "$MEM_SIZE" -lt 900 ]; then
+  echo "Machine memory size should larger equal than 1G"
   exit 1
 fi
 
