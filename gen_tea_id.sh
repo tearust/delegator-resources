@@ -34,7 +34,7 @@ TEA_ID_BASE64=`sed '5q;d' $TEMP_TEA_ID_PATH`
 HINT_VAR=$TEA_ID_HEX
 hint
 
-echo "TEA_ID=\"$TEA_ID_BASE64\"" > $TEA_CONFIG
+echo "TEA_ID=$TEA_ID_BASE64" > $TEA_CONFIG
 
 rm $TEMP_TEA_ID_PATH
 echo "-------- generation completed --------"
