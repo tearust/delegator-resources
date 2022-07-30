@@ -108,7 +108,7 @@ pre_settings() {
 	sudo apt-get install -y git
 
   info "begin to git clone resources..."
-  RESOURCE_DIR=delegator-resources
+  RESOURCE_DIR=$HOME/delegator-resources
   if [ ! -d "$RESOURCE_DIR" ]; then
   	git clone -b epoch10 https://github.com/tearust/delegator-resources
   	cd $RESOURCE_DIR
@@ -120,7 +120,7 @@ pre_settings() {
   fi
   completed "clone resources completed"
 
-  ENV_FILE=.env
+  ENV_FILE=$RESOURCE_DIR/.env
   if [ ! -d "$ENV_FILE" ]; then
     confirm_tea_id
     echo "TEA_ID=$TEA_ID" > $ENV_FILE
