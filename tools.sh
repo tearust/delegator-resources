@@ -7,6 +7,9 @@ if [ $SUB_COMMAND = "logs" ]; then
 	sudo docker-compose logs -f
 elif [ $SUB_COMMAND = "stop" ]; then
 	sudo docker-compose down
+elif [ $SUB_COMMAND = "clean" ]; then
+	sudo docker-compose down
+	rm .env
 elif [ $SUB_COMMAND = "health" ]; then
 	sudo docker-compose ps
 elif [ $SUB_COMMAND = "restart" ]; then
