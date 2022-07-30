@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-TEA_CONFIG="$HOME/.tea"
-
 set -eu
 printf '\n'
 
@@ -82,6 +80,18 @@ install_dependencies() {
 	install_docker
 }
 
+confirm_tea_id() {
+    echo "please enter your tea id..."
+    set +e
+    read -r TEA_ID </dev/tty
+    rc=$?
+    set -e
+    if [ $rc -ne 0 ]; then
+      error "Error reading from prompt (please re-run to type tea id)"
+      exit 1
+    fi
+}
+
 confirm_ip_address() {
     echo "please enter your ip address..."
     set +e
@@ -95,18 +105,6 @@ confirm_ip_address() {
 }
 
 pre_settings() {
-  if [ -e "$TEA_CONFIG" ]; then
-    . $TEA_CONFIG
-  else
-    error "please run gen_tea_id.sh to generate machine id first"
-    exit
-  fi
-
-  if [ -z "$TEA_ID" ]; then
-    error "please input \"Tea Id\""
-    exit 1
-  fi
-
 	sudo apt-get install -y git
 
   info "begin to git clone resources..."
@@ -124,7 +122,8 @@ pre_settings() {
 
   ENV_FILE=.env
   if [ ! -d "$ENV_FILE" ]; then
-    cp $TEA_CONFIG $ENV_FILE
+    confirm_tea_id
+    echo "TEA_ID=$TEA_ID" > $ENV_FILE
 
     confirm_ip_address
     echo "IP_ADDRESS=$IP" >> $ENV_FILE
