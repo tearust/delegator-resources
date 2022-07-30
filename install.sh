@@ -121,7 +121,7 @@ pre_settings() {
   completed "clone resources completed"
 
   ENV_FILE=$RESOURCE_DIR/.env
-  if [ ! -d "$ENV_FILE" ]; then
+  if [ ! -f "$ENV_FILE" ]; then
     confirm_tea_id
     echo "TEA_ID=$TEA_ID" > $ENV_FILE
 
