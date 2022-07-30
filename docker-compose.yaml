@@ -58,13 +58,12 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   parent-instance-client:
-    image: tearust/parent-instance-client:0.10.9
+    image: tearust/parent-instance-client:0.10.10
     container_name: "parent-instance-client"
     networks:
       - single-network
     volumes:
       - .log:/log
-      - .tokenstate:/tokenstate
       - .libp2p:/libp2p
     ports:
       - 5998:5998
@@ -73,6 +72,7 @@ services:
       ADAPTER_SERVER_PORT: 5010
       LOG_FILE: /log/output.log
       VMH_HOST: vmh-server
+      MANIFEST_PATH: manifest-b.yaml
       TEA_ID: ${TEA_ID}
       TEA_ENV_SETTINGS:
         MODE:DEV
@@ -89,7 +89,6 @@ services:
         /ip4/164.90.205.42/tcp/5998
       LIBP2P_VERSION: "epoch10.0"
       STATE_MAGIC_NUMBER: 100
-      PERSIST_PATH: /tokenstate/persist
       WAIT_HOSTS: vmh-server:5007, adapter:8000
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
