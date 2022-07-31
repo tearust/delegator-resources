@@ -81,7 +81,7 @@ install_dependencies() {
 }
 
 confirm_tea_id() {
-    echo "please enter your tea id..."
+    echo "please enter your tea id...(hex encoded, ie. 0x0000000000000000000000000000000000000000000000000000000000000000)"
     set +e
     read -r TEA_ID </dev/tty
     rc=$?
@@ -93,13 +93,25 @@ confirm_tea_id() {
 }
 
 confirm_ip_address() {
-    echo "please enter your ip address..."
+    echo "please enter your ip address...(ie. 192.168.1.1)"
     set +e
     read -r IP </dev/tty
     rc=$?
     set -e
     if [ $rc -ne 0 ]; then
       error "Error reading from prompt (please re-run to type ip address)"
+      exit 1
+    fi
+}
+
+confirm_machine_owner() {
+    echo "please enter your machine owner layer1 account address...(ie. 5D2od84fg3GScGR139Li56raDWNQQhzgYbV7QsEJKS4KfTGv)"
+    set +e
+    read -r MACHINE_OWNER </dev/tty
+    rc=$?
+    set -e
+    if [ $rc -ne 0 ]; then
+      error "Error reading from prompt (please re-run to type machine owner)"
       exit 1
     fi
 }
@@ -127,6 +139,9 @@ pre_settings() {
 
     confirm_ip_address
     echo "IP_ADDRESS=$IP" >> $ENV_FILE
+
+    confirm_machine_owner
+    echo "MACHINE_OWNER=$MACHINE_OWNER" >> $ENV_FILE
   fi
 }
 

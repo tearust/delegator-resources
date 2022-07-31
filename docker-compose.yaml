@@ -73,7 +73,7 @@ services:
       LOG_FILE: /log/output.log
       VMH_HOST: vmh-server
       MANIFEST_PATH: manifest-b.yaml
-      TEA_ID: ${TEA_ID}
+      TEA_ID: "${TEA_ID}"
       TEA_ENV_SETTINGS:
         MODE:DEV
         PUBLIC_URLS:https://tearust.com
@@ -83,6 +83,7 @@ services:
         VALIDATORS_DESIRED_COUNT:5
         ENABLE_PRESSURE_TEST:false
         IP_ADDRESS:${IP_ADDRESS}
+        MACHINE_OWNER:${MACHINE_OWNER}
       LIBP2P_NODE_KEY_PATH: /libp2p/key
       LIBP2P_BOOTNODES: 
         /ip4/164.90.197.175/tcp/5998
