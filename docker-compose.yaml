@@ -33,7 +33,7 @@ services:
 
   ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:0.10.34
+    image: tearust/runtime:0.10.35
     container_name: "runtime"
     networks:
       - single-internal
@@ -58,7 +58,7 @@ services:
       WAIT_SLEEP_INTERVAL: 5
 
   parent-instance-client:
-    image: tearust/parent-instance-client:0.10.11
+    image: tearust/parent-instance-client:0.10.12
     container_name: "parent-instance-client"
     networks:
       - single-network
