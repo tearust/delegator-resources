@@ -33,7 +33,7 @@ services:
 
   ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:0.10.45
+    image: tearust/runtime:0.10.46
     container_name: "runtime"
     networks:
       - single-internal
