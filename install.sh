@@ -105,7 +105,7 @@ confirm_ip_address() {
 }
 
 confirm_machine_owner() {
-    echo "please enter your machine owner layer1 account address...(ie. 5D2od84fg3GScGR139Li56raDWNQQhzgYbV7QsEJKS4KfTGv)"
+    echo "please enter your machine owner layer1 account address...(ie. 0xbd6D4f56b59e45ed25c52Eab7EFf2c626e083db9)"
     set +e
     read -r MACHINE_OWNER </dev/tty
     rc=$?
