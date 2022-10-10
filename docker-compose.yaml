@@ -10,7 +10,7 @@ services:
 
   # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:0.11.3
+    image: tearust/runtime:0.11.6
     container_name: runtime
     environment:
       SIM_CLIENT_URL: http://nsm-simulator:5999
