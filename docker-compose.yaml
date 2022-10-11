@@ -39,7 +39,7 @@ services:
 
   # ################ Parent Instance Client ##############
   client:
-    image: tearust/parent-instance-client:0.11.0
+    image: tearust/parent-instance-client:0.11.1
     container_name: client
     ports:
       - 8000:8000
