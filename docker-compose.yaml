@@ -16,14 +16,6 @@ services:
     entrypoint: []
     command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
 
-
-  # ################ Simulator  ##############
-  nsm-simulator:
-    image: tearust/nsm-simulator:0.11.0
-    container_name: nsm-simulator
-    ports:
-      - 5999:5999
-
   # ################ Runtime  ##############
   runtime:
     image: tearust/runtime:0.11.15
