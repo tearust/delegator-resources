@@ -1,12 +1,12 @@
 {
 	"contract_addresses": {
-		"lock": "0xda0Acde952Be969Fa5cdFA57532eB0C9Bc317309",
-		"storage": "0x5eF2443bdB37cF53C26F71b04FEd08Be321203Fd",
-		"maintainer": "0x2FBA8614b708D4d57253cF6b95340e8D8cAf3618",
-		"token_vesting": "0xcD1E972D49Ef37a5AA03085F64e3a862Ec80397b",
-		"erc721": "0x78BA472A48fDf4c806A7A337a53f21EBb7F4A922"
+		"lock": "0x9b11D1f4C9E4D794E0402834b1532506a5837aC6",
+		"storage": "0xe5C061824A25aF7647A8BF94D6F0dcdE5a9A48dD",
+		"maintainer": "0x1Acd126f0f7964bec58384Ab5a8c4eB31aE09fd2",
+		"token_vesting": "0xB32b3F69158bC249fa723D172176F00A73CA1195",
+		"erc721": "0xB306D8e4c444c3FeCbE7e0704B2cBAD278365787"
 	},
-	"tappstore_id": "0x000070ecf9Ab56Ab3d8f5286FCEb090BE756baC8",
+	"tappstore_id": "0xE096Ed2a039beb800897369F6926762BBc1BBfd2",
 	"init_owner": "0xbd6D4f56b59e45ed25c52Eab7EFf2c626e083db9",
 	"chain_id": 5,
 	"validators_min_count": 2,
