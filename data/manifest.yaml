@@ -173,7 +173,7 @@ actors:
       - capability: tea:intercom
       - capability: tea:nitro
       - capability: tea:keyvalue
-        binding: tea_tapp_tappstore
+        binding: MAUJS3ZTZQ2GEVDPAV4P5HBVTHGBLEDSQGPDRAMDRUIYQ3CN6TBERYF7
       - capability: tea:orbitdb
 
   tapp-seat-actor:
