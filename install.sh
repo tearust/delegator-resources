@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 set -eu
 printf '\n'
@@ -81,39 +81,47 @@ install_dependencies() {
 }
 
 confirm_tea_id() {
-    echo "please enter your tea id...(hex encoded, ie. 0x0000000000000000000000000000000000000000000000000000000000000000)"
-    set +e
-    read -r TEA_ID </dev/tty
-    rc=$?
-    set -e
-    if [ $rc -ne 0 ]; then
-      error "Error reading from prompt (please re-run to type tea id)"
-      exit 1
-    fi
+  echo "please enter your tea id...(hex encoded, ie. 0x0000000000000000000000000000000000000000000000000000000000000000)"
+  set +e
+  read -r TEA_ID </dev/tty
+  rc=$?
+  set -e
+
+  if [[ $TEA_ID =~ ^(0x)*[[:xdigit:]]{64}$ ]]; then
+    echo "tea id accepted" 
+  else
+    error "Error reading from prompt (please re-run to type tea id)"
+    exit 1
+  fi
 }
 
 confirm_ip_address() {
-    echo "please enter your ip address...(ie. 192.168.1.1)"
-    set +e
-    read -r IP </dev/tty
-    rc=$?
-    set -e
-    if [ $rc -ne 0 ]; then
-      error "Error reading from prompt (please re-run to type ip address)"
-      exit 1
-    fi
+  echo "please enter your ip address...(ie. 192.168.1.1)"
+  set +e
+  read -r IP </dev/tty
+  rc=$?
+  set -e
+  if [[ $IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+    echo "ip address accepted" 
+  else
+    error "Error reading from prompt (please re-run to type ip address)"
+    exit 1
+  fi
 }
 
 confirm_machine_owner() {
-    echo "please enter your machine owner layer1 account address...(ie. 0xbd6D4f56b59e45ed25c52Eab7EFf2c626e083db9)"
-    set +e
-    read -r MACHINE_OWNER </dev/tty
-    rc=$?
-    set -e
-    if [ $rc -ne 0 ]; then
-      error "Error reading from prompt (please re-run to type machine owner)"
-      exit 1
-    fi
+  echo "please enter your machine owner layer1 account address...(ie. 0xbd6D4f56b59e45ed25c52Eab7EFf2c626e083db9)"
+  set +e
+  read -r MACHINE_OWNER </dev/tty
+  rc=$?
+  set -e
+
+  if [[ $MACHINE_OWNER =~ ^(0x)*[[:xdigit:]]{40}$ ]]; then
+    echo "machine id owner accepted" 
+  else
+    error "Error reading from prompt (please re-run to type machine owner)"
+    exit 1
+  fi
 }
 
 pre_settings() {
