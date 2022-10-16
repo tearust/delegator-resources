@@ -2,7 +2,7 @@
 
 Run the following command to start or update new version:
 ```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch11/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch11/install.sh)"
 ```
 
 ## Operations after run
