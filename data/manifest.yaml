@@ -15,6 +15,9 @@ actors:
       - capability: tea:tokenstate
         depends_on:
           - client: layer1
+      - capability: tea:persist
+        depends_on:
+          - client: persist
       - capability: tea:console
       - capability: tea:http
 
@@ -140,6 +143,21 @@ actors:
       - capability: tea:keyvalue
         binding: tea_layer1_service
 
+  system-miner-gas-actor:
+    path: /tearust/system_minergas_signed.wasm
+    pubkey: MC7LU3DLLZZNED7TAVNVJT2UZXSHVVH7K47I2B5IFIN7CRU3XURPABXC
+    depends_on:
+      # tappstore-b-actor needed only by B type nodes, which is opposite to tappstore-actor
+      - client: layer1
+        enable: false
+    bindings:
+      - capability: tea:adapter
+      - capability: tea:intercom
+      - capability: tea:nitro
+      - capability: tea:keyvalue
+        binding: MC7LU3DLLZZNED7TAVNVJT2UZXSHVVH7K47I2B5IFIN7CRU3XURPABXC
+      - capability: tea:orbitdb
+
   tappstore-actor:
     path: /tearust/tappstore_actor_signed.wasm
     pubkey: MCSUSRIOFUNAKY5PCJKFS5WV56TLU533GELP4VADUPCAINFTBQMQE2VC
@@ -190,7 +208,7 @@ actors:
       - capability: tea:keyvalue
         binding: MDZ7JCLDA5UEIKTVS7ZVF6LHWKNW46PMVQWAQH4NNUGAE3E4BRHZA73X
       - capability: tea:orbitdb
-  
+
   tapp-leaderboard-actor:
     path: /tearust/tapp_sample_leaderboard_signed.wasm
     pubkey: MBWTZCO7CHIQEXJLBKGTMCQZWFBXDUJLKIALPBQRKRJA2A7MMIQADNA5
@@ -220,8 +238,6 @@ actors:
       - capability: tea:keyvalue
         binding: MA5QHBQ5YLTSU4JKKK55Q4MLUGHJ6IDP4DK7YRQHMNKJWS4QLH5I2EBA
       - capability: tea:orbitdb
-
-  
 
 # capabilities loaded by order
 capabilities:
