@@ -40,7 +40,6 @@ services:
       - .tokenstate:/tokenstate
       - .libp2p:/libp2p
       - ./data:/tearust/data
-      - ./data/manifest.yaml:/tearust/manifest.yaml
     environment:
       ENCLAVE_HOST: runtime
       SELF_HOST: client
