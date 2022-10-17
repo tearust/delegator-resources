@@ -2,7 +2,7 @@
 
 Run the following command to start or update new version:
 ```
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/epoch11/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/tearust/delegator-resources/nitro/install.sh)"
 ```
 
 ## Operations after run

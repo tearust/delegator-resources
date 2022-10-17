@@ -1,22 +1,6 @@
 version: "3.1"
 
 services:
-  ipfs:
-    image: ipfs/go-ipfs:v0.8.0
-    container_name: ipfs
-    ports:
-      - 4001:4001
-      - 5001:5001
-      - 8080:8080
-    volumes:
-      - .ipfs_data:/data/ipfs
-      - .ipfs:/ipfs/config
-    environment:
-      IPFS_SWARM_KEY_FILE: /ipfs/config/swarm.key
-    entrypoint: []
-    command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
-
-  # ################ Runtime  ##############
   runtime:
     image: tearust/runtime:0.11.22
     container_name: runtime
@@ -40,7 +24,6 @@ services:
       - .tokenstate:/tokenstate
       - .libp2p:/libp2p
       - ./data:/tearust/data
-      - ./data/manifest.yaml:/tearust/manifest.yaml
     environment:
       ENCLAVE_HOST: runtime
       SELF_HOST: client
@@ -49,11 +32,7 @@ services:
       MACHINE_OWNER: "${MACHINE_OWNER}"
       LIBP2P_NODE_KEY_PATH: /libp2p/key
       LIBP2P_BOOTNODES: 
-        /ip4/178.62.253.136/tcp/5998
-        /ip4/188.166.8.79/tcp/5998
-        /ip4/167.99.209.150/tcp/5998
-        /ip4/146.190.233.133/tcp/5998
-        /ip4/206.189.100.29/tcp/5998
+        /ip4/13.124.75.42/tcp/5998
       LIBP2P_VERSION: "local0.1"
       STATE_MAGIC_NUMBER: 100
       PERSIST_PATH: /tokenstate/persist
