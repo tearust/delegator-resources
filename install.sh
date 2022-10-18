@@ -116,7 +116,7 @@ confirm_machine_owner() {
   rc=$?
   set -e
 
-  if [[ $MACHINE_OWNER =~ ^(0x)*[[:xdigit:]]{40}$ ]]; then
+  if [[ $MACHINE_OWNER =~ ^0x*[[:xdigit:]]{40}$ ]]; then
     echo "machine id owner accepted" 
   else
     error "Error reading from prompt (please re-run to type machine owner)"
