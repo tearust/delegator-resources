@@ -87,7 +87,7 @@ confirm_tea_id() {
   rc=$?
   set -e
 
-  if [[ $TEA_ID =~ ^(0x)*[[:xdigit:]]{64}$ ]]; then
+  if [[ $TEA_ID =~ ^0x*[[:xdigit:]]{64}$ ]]; then
     echo "tea id accepted" 
   else
     error "Error reading from prompt (please re-run to type tea id)"
