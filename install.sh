@@ -87,12 +87,6 @@ confirm_tea_id() {
   rc=$?
   set -e
 
-  if [[ $TEA_ID =~ ^0x*[[:xdigit:]]{64}$ ]]; then
-    echo "tea id accepted" 
-  else
-    error "Error reading from prompt (please re-run to type tea id)"
-    exit 1
-  fi
 }
 
 confirm_ip_address() {
@@ -116,12 +110,6 @@ confirm_machine_owner() {
   rc=$?
   set -e
 
-  if [[ $MACHINE_OWNER =~ ^0x*[[:xdigit:]]{40}$ ]]; then
-    echo "machine id owner accepted" 
-  else
-    error "Error reading from prompt (please re-run to type machine owner)"
-    exit 1
-  fi
 }
 
 pre_settings() {
