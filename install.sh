@@ -95,12 +95,7 @@ confirm_ip_address() {
   read -r IP </dev/tty
   rc=$?
   set -e
-  if [[ $IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-    echo "ip address accepted" 
-  else
-    error "Error reading from prompt (please re-run to type ip address)"
-    exit 1
-  fi
+
 }
 
 confirm_machine_owner() {
