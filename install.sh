@@ -81,16 +81,16 @@ install_dependencies() {
 }
 
 confirm_tea_id() {
-  echo "please enter your tea id...(hex encoded, ie. 0x0000000000000000000000000000000000000000000000000000000000000000)"
+  echo "please enter your machine id...(hex encoded, ie. 0x0000000000000000000000000000000000000000000000000000000000000000)"
   set +e
   read -r TEA_ID </dev/tty
   rc=$?
   set -e
 
   if [[ $TEA_ID =~ ^(0x)*[[:xdigit:]]{64}$ ]]; then
-    echo "tea id accepted" 
+    echo "machine id accepted" 
   else
-    error "Error reading from prompt (please re-run to type tea id)"
+    error "Error reading from prompt (please re-run to type machine id)"
     exit 1
   fi
 }
