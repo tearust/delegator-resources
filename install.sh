@@ -95,20 +95,6 @@ confirm_tea_id() {
   fi
 }
 
-confirm_ip_address() {
-  echo "please enter your ip address...(ie. 192.168.1.1)"
-  set +e
-  read -r IP </dev/tty
-  rc=$?
-  set -e
-  if [[ $IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-    echo "ip address accepted" 
-  else
-    error "Error reading from prompt (please re-run to type ip address)"
-    exit 1
-  fi
-}
-
 confirm_machine_owner() {
   echo "please enter your machine owner layer1 account address...(ie. 0xbd6D4f56b59e45ed25c52Eab7EFf2c626e083db9)"
   set +e
@@ -144,9 +130,6 @@ pre_settings() {
   if [ ! -f "$ENV_FILE" ]; then
     confirm_tea_id
     echo "TEA_ID=$TEA_ID" > $ENV_FILE
-
-    confirm_ip_address
-    echo "IP_ADDRESS=$IP" >> $ENV_FILE
 
     confirm_machine_owner
     echo "MACHINE_OWNER=$MACHINE_OWNER" >> $ENV_FILE

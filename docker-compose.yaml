@@ -53,7 +53,6 @@ services:
       LIBP2P_VERSION: "local0.1"
       STATE_MAGIC_NUMBER: 100
       PERSIST_PATH: /tokenstate/persist
-      IP_ADDRESS: ${IP_ADDRESS}
       RUST_BACKTRACE: full
 
       WAIT_HOSTS: runtime:5005
