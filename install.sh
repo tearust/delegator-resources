@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+TEA_ID_ARG=$1
+MACHINE_OWNER_ARG=$2
+: ${TEA_ID_ARG:=""}
+: ${MACHINE_OWNER_ARG:=""}
+
 set -eu
 printf '\n'
 
@@ -127,12 +132,20 @@ pre_settings() {
   completed "clone resources completed"
 
   ENV_FILE=$RESOURCE_DIR/.env
-  if [ ! -f "$ENV_FILE" ]; then
-    confirm_tea_id
-    echo "TEA_ID=$TEA_ID" > $ENV_FILE
 
-    confirm_machine_owner
-    echo "MACHINE_OWNER=$MACHINE_OWNER" >> $ENV_FILE
+  if [[ -n "$TEA_ID_ARG" && -n "$MACHINE_OWNER_ARG" ]]; then
+    info "begin to init env file through command line arguments"
+    printf "TEA_ID=$TEA_ID_ARG\nMACHINE_OWNER=$MACHINE_OWNER_ARG\n" > $ENV_FILE
+  else
+    if [ ! -f "$ENV_FILE" ]; then
+      info "begin to init env file from prompt"
+
+      confirm_tea_id
+      echo "TEA_ID=$TEA_ID" > $ENV_FILE
+
+      confirm_machine_owner
+      echo "MACHINE_OWNER=$MACHINE_OWNER" >> $ENV_FILE
+    fi
   fi
 }
 
