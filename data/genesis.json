@@ -1,16 +1,13 @@
 {
 	"contract_addresses": {
-		"lock": "0xfD7f1E5218F92C097E6F9baf1927f6DD82eC1B9c",
-		"storage": "0x51fB652Cf35d0EFA0bD1c8BAd9E630f30EFA592f",
-		"maintainer": "0xf48785B7635eaC277948b6579aDBDf8128962Ea6",
-		"token_vesting": "0xA42D8C373f78b34665BA7508B71997169717A6E3",
-		"erc721": "0x03aC725957941915090D26AC74dB388f24bf20A3"
+		"lock": "0x1D37b9Bd496c12f356d85A35dAc87F0CA1a8c4f7",
+		"storage": "0x30C8C14C9BbC1477fAa8eD7C09931c859C509E31",
+		"maintainer": "0xBacdd5787cDBc5D8dD97e69Ab882434271EF7EcD",
+		"token_vesting": "0x7573EAD1c4925De687a657667e23402dc423703f",
+		"erc721": "0x626F76c42257d9dCc1b3FFeC26c41a4fA9F2899c"
 	},
-	"tappstore_id": "0xCbf688B3f341558bf8193014af599BB742aBBD62",
-	"init_owner": "0xbd6D4f56b59e45ed25c52Eab7EFf2c626e083db9",
+	"tappstore_id": "0x6aac2BE388cA3665f7ad5dd555526e36d94Cd822",
 	"chain_id": 5,
-	"validators_min_count": 2,
-	"validators_desired_count": 50,
 	"mining_startup_nodes": [
 		{
 			"machine_id": "df38cb4f12479041c8e8d238109ef2a150b017f382206e24fee932e637c2db7b",

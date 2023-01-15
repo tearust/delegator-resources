@@ -1,37 +1,18 @@
 version: "3.1"
 
 services:
-  ipfs:
-    image: ipfs/go-ipfs:v0.8.0
-    container_name: ipfs
-    ports:
-      - 4001:4001
-      - 5001:5001
-      - 8080:8080
-    volumes:
-      - .ipfs_data:/data/ipfs
-      - .ipfs:/ipfs/config
-    environment:
-      IPFS_SWARM_KEY_FILE: /ipfs/config/swarm.key
-    entrypoint: []
-    command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
-
-  # ################ Runtime  ##############
   runtime:
-    image: tearust/runtime:0.12.19
+    image: tearust/runtime:0.13.1
     container_name: runtime
     environment:
-      SIM_CLIENT_URL: http://nsm-simulator:5999
       CLIENT_HOST: client
       RUST_BACKTRACE: full
-
-      WAIT_HOSTS: nsm-simulator:5999
-      WAIT_TIMEOUT: 300
-      WAIT_SLEEP_INTERVAL: 5
+      MALLOC_CONF: prof:true
+      RUST_LOG: INFO,wasmer=WARN,regalloc2=WARN
 
   # ################ Parent Instance Client ##############
   client:
-    image: tearust/parent-instance-client:0.12.6
+    image: tearust/parent-instance-client:0.13.1
     container_name: client
     ports:
       - 8000:8000
@@ -48,8 +29,8 @@ services:
       MACHINE_OWNER: "${MACHINE_OWNER}"
       LIBP2P_NODE_KEY_PATH: /libp2p/key
       LIBP2P_BOOTNODES: 
-        /ip4/178.62.253.136/tcp/5998/p2p/12D3KooWKUd6bwsqNKzFgeruvk7pNSMUoBcrUKKU9Djqd1A3H9q8
-        /ip4/188.166.8.79/tcp/5998/p2p/12D3KooWKExtVZ4AY1L3ZkMjihkf7tYPBQQ1Z3kTbUjwBGPrrQa3
+        /ip4/147.182.197.213/tcp/5998/p2p/12D3KooWKUd6bwsqNKzFgeruvk7pNSMUoBcrUKKU9Djqd1A3H9q8
+        /ip4/164.92.124.121/tcp/5998/p2p/12D3KooWKExtVZ4AY1L3ZkMjihkf7tYPBQQ1Z3kTbUjwBGPrrQa3
       LIBP2P_VERSION: "local0.1"
       STATE_MAGIC_NUMBER: 100
       PERSIST_PATH: /tokenstate/persist
