@@ -33,7 +33,7 @@ services:
         /ip4/164.92.124.121/tcp/5998/p2p/12D3KooWKExtVZ4AY1L3ZkMjihkf7tYPBQQ1Z3kTbUjwBGPrrQa3
       LIBP2P_SUPPORTED_PROTOCOLS: tea-0.13
       LIBP2P_AGENT_PROTOCOL: tea-0.13
-      LIBP2P_VERSION: 1.0
+      LIBP2P_VERSION: 0.13
       STATE_MAGIC_NUMBER: 100
       PERSIST_PATH: /tokenstate/persist
       RUST_BACKTRACE: full
