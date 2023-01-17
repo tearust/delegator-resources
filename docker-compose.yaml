@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   runtime:
-    image: tearust/runtime:0.13.2
+    image: tearust/runtime:0.13.3
     container_name: runtime
     environment:
       CLIENT_HOST: client
@@ -12,7 +12,7 @@ services:
 
   # ################ Parent Instance Client ##############
   client:
-    image: tearust/parent-instance-client:0.13.3
+    image: tearust/parent-instance-client:0.13.4
     container_name: client
     ports:
       - 8000:8000
