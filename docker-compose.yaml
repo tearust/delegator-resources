@@ -1,6 +1,22 @@
 version: "3.1"
 
 services:
+
+  ipfs:
+    image: ipfs/go-ipfs:v0.8.0
+    container_name: ipfs
+    ports:
+      - 4001:4001
+      - 5001:5001
+      - 8080:8080
+    volumes:
+      - .ipfs_data:/data/ipfs
+      - .ipfs:/ipfs/config
+    environment:
+      IPFS_SWARM_KEY_FILE: /ipfs/config/swarm.key
+    entrypoint: []
+    command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
+
   runtime:
     image: tearust/runtime:0.13.8
     container_name: runtime
