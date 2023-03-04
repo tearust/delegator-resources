@@ -1,11 +1,5 @@
 version: "3.1"
 
-logging:
-  driver: json-file
-  options:
-    max-size: 10m
-    max-file: 5
-
 services:
 
   ipfs:
@@ -63,3 +57,10 @@ services:
       WAIT_HOSTS: runtime:5005
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
+
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 5
+
