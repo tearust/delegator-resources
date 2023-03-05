@@ -8,3 +8,5 @@
 .log/*
 nohup.out
 .env
+.libp2p
+.tokenstate
