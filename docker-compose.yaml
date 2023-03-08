@@ -18,7 +18,7 @@ services:
     command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
 
   runtime:
-    image: tearust/runtime:0.13.14
+    image: tearust/runtime:0.13.15
     container_name: runtime
     environment:
       CLIENT_HOST: client
@@ -28,7 +28,7 @@ services:
 
   # ################ Parent Instance Client ##############
   client:
-    image: tearust/parent-instance-client:0.13.10
+    image: tearust/parent-instance-client:0.13.11
     container_name: client
     ports:
       - 8000:8000
