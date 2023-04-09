@@ -18,8 +18,10 @@ services:
     command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
 
   runtime:
-    image: tearust/runtime:0.13.22
+    image: tearust/runtime:0.13.23
     container_name: runtime
+    volumes:
+      - .actors:/actors
     environment:
       CLIENT_HOST: client
       RUST_BACKTRACE: full
@@ -28,7 +30,7 @@ services:
 
   # ################ Parent Instance Client ##############
   client:
-    image: tearust/parent-instance-client:0.13.16
+    image: tearust/parent-instance-client:0.13.17
     container_name: client
     ports:
       - 8000:8000
@@ -52,6 +54,8 @@ services:
       LIBP2P_VERSION: 0.13
       STATE_MAGIC_NUMBER: 100
       PERSIST_PATH: /tokenstate/persist
+      ACTOR_DOWNLOAD_PATH: /actors/download
+      IPFS_URL_BASE: http://host.docker.internal:5001
       RUST_BACKTRACE: full
 
       WAIT_HOSTS: runtime:5005
