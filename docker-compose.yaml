@@ -18,7 +18,7 @@ services:
     command: sh -c "/ipfs/config/start_ipfs daemon --migrate --enable-pubsub-experiment"
 
   runtime:
-    image: tearust/runtime:0.13.23
+    image: tearust/runtime:0.13.24
     container_name: runtime
     volumes:
       - .actors:/actors
