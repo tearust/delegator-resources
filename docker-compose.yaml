@@ -32,6 +32,8 @@ services:
   client:
     image: tearust/parent-instance-client:0.13.18
     container_name: client
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - 8000:8000
       - 5998:5998
