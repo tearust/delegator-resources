@@ -60,7 +60,7 @@ services:
       IPFS_URL_BASE: http://host.docker.internal:5001
       RUST_BACKTRACE: full
 
-      WAIT_HOSTS: runtime:5005
+      WAIT_HOSTS: runtime:5005, ipfs:5001
       WAIT_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 5
 
